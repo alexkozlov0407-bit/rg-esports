@@ -21,16 +21,25 @@ export function FloatingWatermark() {
 
   if (isMinimized) {
     return (
-      <div className="fixed bottom-4 right-4 z-40">
+      <div className="fixed bottom-4 left-4 sm:bottom-5 sm:left-5 z-40 select-none">
         <button
           onClick={() => {
             sound.playClick();
             setIsMinimized(false);
           }}
-          title="Designed by Alex · alexcodes.me"
-          className="flex h-9 w-9 items-center justify-center rounded-full bg-[#080b12]/90 border border-[#00f0ff]/40 text-[#00f0ff] hover:text-white hover:border-[#00f0ff] hover:shadow-[0_0_15px_rgba(0,240,255,0.4)] backdrop-blur-md transition-all duration-300 group"
+          title="Crafted by Alex Kozlov · alexcodes.me (Click to expand)"
+          className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#080b12]/95 border border-[#00f0ff]/40 text-[#00f0ff] hover:text-white hover:border-[#00f0ff] hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] backdrop-blur-xl transition-all duration-300 group shadow-2xl"
         >
-          <Code2 className="h-4 w-4 transition-transform group-hover:scale-110" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/alex-avatar.png"
+            alt="Alex Kozlov"
+            className="h-7 w-7 rounded-full object-cover transition-transform group-hover:scale-105"
+            onError={(e) => {
+              (e.currentTarget as HTMLElement).style.display = "none";
+            }}
+          />
+          <Code2 className="h-4 w-4 hidden only:block transition-transform group-hover:scale-110" />
           <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00f0ff] opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#00f0ff]"></span>
@@ -41,68 +50,82 @@ export function FloatingWatermark() {
   }
 
   return (
-    <aside aria-label="Developer watermark" className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-40 select-none">
-      <div className="flex items-center gap-2.5 rounded-full bg-[#07090e]/85 backdrop-blur-md border border-[#1e2738]/90 pl-3 pr-2 py-1.5 shadow-[0_4px_24px_rgba(0,0,0,0.6)] hover:border-[#00f0ff]/50 hover:shadow-[0_0_20px_rgba(0,240,255,0.2)] transition-all duration-300 text-xs font-mono group">
-        {/* Glowing pulse indicator */}
-        <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00f0ff] opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00f0ff]"></span>
-        </span>
+    <aside aria-label="Developer watermark" className="fixed bottom-4 left-4 sm:bottom-5 sm:left-5 z-40 select-none">
+      <div className="relative group">
+        {/* Subtle ambient hover glow halo */}
+        <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-[#00f0ff]/30 via-[#5865F2]/20 to-[#ff1a53]/20 blur opacity-30 group-hover:opacity-90 transition duration-500 pointer-events-none" />
 
-        {/* Brand label */}
-        <span className="text-gray-400 font-medium tracking-tight flex items-center gap-1.5">
-          <span className="text-gray-500 hidden sm:inline">Built by</span>
+        {/* Main Glassmorphic Capsule */}
+        <div className="relative flex items-center gap-2.5 rounded-full bg-[#07090e]/90 backdrop-blur-xl border border-white/10 pl-2.5 pr-2 py-1.5 shadow-[0_4px_24px_rgba(0,0,0,0.7)] group-hover:border-[#00f0ff]/50 group-hover:shadow-[0_0_25px_rgba(0,240,255,0.2)] transition-all duration-300 text-xs font-mono">
+          
+          {/* Creator Mini Avatar with Online Beacon */}
           <a
             href="https://alexcodes.me"
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleClick}
-            className="text-white hover:text-[#00f0ff] font-semibold transition-colors flex items-center gap-1"
+            className="relative flex items-center justify-center shrink-0"
+            title="Alex Kozlov (@alexcodes1)"
           >
-            <span>AlexCodes</span>
-            <ExternalLink className="h-2.5 w-2.5 opacity-60 group-hover:opacity-100 transition-opacity" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/alex-avatar.png"
+              alt="Alex Kozlov"
+              className="h-6 w-6 rounded-full object-cover border border-[#00f0ff]/40 shadow-sm transition-transform hover:scale-110"
+              onError={(e) => {
+                (e.currentTarget as HTMLElement).style.display = "none";
+              }}
+            />
+            <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00f0ff] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00f0ff]"></span>
+            </span>
           </a>
-        </span>
 
-        <span className="text-[#1e2738] font-thin">|</span>
+          {/* Brand label & Portfolio Link */}
+          <span className="text-gray-400 font-medium tracking-tight flex items-center gap-1.5">
+            <span className="text-gray-500 hidden sm:inline">crafted by</span>
+            <a
+              href="https://alexcodes.me"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleClick}
+              className="text-white hover:text-[#00f0ff] font-bold transition-colors flex items-center gap-1"
+              title="Visit alexcodes.me"
+            >
+              <span>alexcodes.me</span>
+              <ExternalLink className="h-2.5 w-2.5 opacity-60 group-hover:opacity-100 transition-opacity" />
+            </a>
+          </span>
 
-        {/* Website pill */}
-        <a
-          href="https://alexcodes.me"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={handleClick}
-          title="Visit alexcodes.me"
-          className="flex items-center gap-1 text-[11px] text-gray-400 hover:text-[#00f0ff] hover:bg-[#00f0ff]/10 px-2 py-0.5 rounded-full border border-transparent hover:border-[#00f0ff]/30 transition-all"
-        >
-          <Globe className="h-3 w-3" />
-          <span className="hidden md:inline">alexcodes.me</span>
-        </a>
+          <span className="text-white/20 font-thin select-none">|</span>
 
-        {/* Discord pill */}
-        <a
-          href="https://discord.gg/fjSCWKTyAB"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={handleClick}
-          title="Join Alex's Discord Community"
-          className="flex items-center gap-1 text-[11px] text-gray-400 hover:text-[#8ea1e1] hover:bg-[#5865F2]/15 px-2 py-0.5 rounded-full border border-transparent hover:border-[#5865F2]/40 transition-all"
-        >
-          <DiscordIcon className="h-3 w-3" />
-          <span className="hidden md:inline">Discord</span>
-        </a>
+          {/* Direct Discord Link Badge */}
+          <a
+            href="https://discord.gg/fjSCWKTyAB"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={handleClick}
+            title="Join Alex's Developer Discord (discord.gg/fjSCWKTyAB)"
+            className="flex items-center gap-1.5 text-[11px] font-semibold text-[#c7d2fe] hover:text-white bg-[#5865F2]/20 hover:bg-[#5865F2]/35 px-2.5 py-0.5 rounded-full border border-[#5865F2]/35 hover:border-[#5865F2]/70 shadow-sm transition-all"
+          >
+            <DiscordIcon className="h-3 w-3 text-[#818cf8]" />
+            <span>Discord</span>
+          </a>
 
-        {/* Minimize button */}
-        <button
-          onClick={() => {
-            sound.playClick();
-            setIsMinimized(true);
-          }}
-          title="Minimize watermark"
-          className="text-gray-500 hover:text-gray-300 p-0.5 rounded-full hover:bg-white/5 transition-colors ml-0.5"
-        >
-          <X className="h-3 w-3" />
-        </button>
+          {/* Minimize Button */}
+          <button
+            onClick={() => {
+              sound.playClick();
+              setIsMinimized(true);
+            }}
+            title="Minimize watermark"
+            className="text-gray-500 hover:text-gray-300 p-0.5 rounded-full hover:bg-white/10 transition-colors ml-0.5"
+            aria-label="Minimize watermark"
+          >
+            <X className="h-3 w-3" />
+          </button>
+        </div>
       </div>
     </aside>
   );

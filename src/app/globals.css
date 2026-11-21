@@ -1,148 +1,147 @@
 @import "tailwindcss";
 
-/* ── Arrogant Esports / BioPortl Design Tokens ─────────────── */
+/* ── Republic of Golds (RG Esports) Design Tokens ─────────────── */
 :root {
-  --argt-black: #060709;
-  --argt-card: #0c0e14ea;
-  --argt-card-hover: #141722;
-  --argt-border: #1e2230;
-  --argt-border-glow: #ff1a5333;
-  --argt-red: #ff1a53;
-  --argt-red-bright: #ff3366;
-  --argt-red-glow: rgba(255, 26, 83, 0.45);
-  --argt-cyan: #00f0ff;
-  --argt-cyan-glow: rgba(0, 240, 255, 0.35);
-  --argt-gold: #ffb800;
-  --argt-text: #f3f4f6;
-  --argt-muted: #9ca3af;
-  --argt-discord: #5865F2;
-  --argt-tiktok: #FE2C55;
-  --argt-youtube: #FF0000;
+  --rg-black: #06070a;
+  --rg-card: #0b0e15ea;
+  --rg-card-hover: #121722;
+  --rg-border: #1a2233;
+  --rg-border-glow: #eab30844;
+  
+  /* Brand Accents */
+  --rg-gold: #f59e0b;
+  --rg-gold-bright: #fbbf24;
+  --rg-gold-glow: rgba(245, 158, 11, 0.45);
+  
+  --rg-pink: #ff2d78;
+  --rg-pink-glow: rgba(255, 45, 120, 0.45);
+  
+  --rg-red: #ef4444;
+  --rg-red-glow: rgba(239, 68, 68, 0.45);
+  
+  --rg-cyan: #06b6d4;
+  --rg-cyan-glow: rgba(6, 182, 212, 0.35);
 
-  /* backwards compatibility tokens */
-  --bp-base: var(--argt-black);
-  --bp-card: var(--argt-card);
-  --bp-border: var(--argt-border);
-  --bp-text: var(--argt-text);
-  --bp-muted: var(--argt-muted);
-  --bp-accent: var(--argt-red);
-  --bp-accent-hover: var(--argt-red-bright);
+  --rg-purple: #a855f7;
+  
+  --rg-text: #f8fafc;
+  --rg-muted: #94a3b8;
+  --rg-discord: #5865F2;
+  --rg-tiktok: #FE2C55;
+  --rg-youtube: #FF0000;
+  --rg-x: #e2e8f0;
 
-  --background: var(--argt-black);
-  --foreground: var(--argt-text);
+  --background: var(--rg-black);
+  --foreground: var(--rg-text);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-argt-black: #060709;
-  --color-argt-card: #0c0e14ea;
-  --color-argt-border: #1e2230;
-  --color-argt-red: #ff1a53;
-  --color-argt-red-bright: #ff3366;
-  --color-argt-cyan: #00f0ff;
-  --color-argt-gold: #ffb800;
-  --color-argt-text: #f3f4f6;
-  --color-argt-muted: #9ca3af;
-  --color-argt-discord: #5865F2;
-  --color-argt-tiktok: #FE2C55;
-  --color-argt-youtube: #FF0000;
-
-  --color-bp-base: #060709;
-  --color-bp-card: #0c0e14ea;
-  --color-bp-border: #1e2230;
-  --color-bp-text: #f3f4f6;
-  --color-bp-muted: #9ca3af;
-  --color-bp-accent: #ff1a53;
-  --color-bp-accent-hover: #ff3366;
+  --color-rg-black: #06070a;
+  --color-rg-card: #0b0e15ea;
+  --color-rg-border: #1a2233;
+  --color-rg-gold: #f59e0b;
+  --color-rg-gold-bright: #fbbf24;
+  --color-rg-pink: #ff2d78;
+  --color-rg-red: #ef4444;
+  --color-rg-cyan: #06b6d4;
+  --color-rg-purple: #a855f7;
+  --color-rg-text: #f8fafc;
+  --color-rg-muted: #94a3b8;
+  --color-rg-discord: #5865F2;
+  --color-rg-tiktok: #FE2C55;
+  --color-rg-youtube: #FF0000;
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background-color: var(--argt-black);
-  color: var(--argt-text);
+  background-color: var(--rg-black);
+  color: var(--rg-text);
   font-family: var(--font-sans, Arial, Helvetica, sans-serif);
   overflow-x: hidden;
   background-image: 
-    radial-gradient(ellipse at 50% 0%, rgba(255, 26, 83, 0.12) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 50%, rgba(0, 240, 255, 0.05) 0%, transparent 50%),
-    radial-gradient(ellipse at 20% 80%, rgba(88, 101, 242, 0.05) 0%, transparent 50%),
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
-  background-position: 0 0, 0 0, 0 0, -1px -1px, -1px -1px;
+    radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 85% 40%, rgba(255, 45, 120, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 15% 70%, rgba(239, 68, 68, 0.06) 0%, transparent 50%);
+  background-attachment: fixed;
 }
 
-/* ── Esports Glass Card ──────────────────────────────────── */
+/* Esports Card & Border Styles */
 .esports-card {
-  background: var(--argt-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--argt-border);
-  position: relative;
+  background: linear-gradient(135deg, rgba(16, 21, 32, 0.9) 0%, rgba(10, 13, 20, 0.95) 100%);
+  border: 1px solid var(--rg-border);
+  backdrop-filter: blur(12px);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .esports-card:hover {
-  border-color: rgba(255, 26, 83, 0.4);
-  box-shadow: 0 10px 30px -10px rgba(255, 26, 83, 0.2), inset 0 0 15px rgba(255, 26, 83, 0.05);
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 10px 30px -10px rgba(245, 158, 11, 0.2);
+  transform: translateY(-2px);
 }
 
-/* ── Glowing Accent Borders ──────────────────────────────── */
-.glow-red {
-  box-shadow: 0 0 25px -5px rgba(255, 26, 83, 0.4);
+.esports-gold-glow {
+  box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.4);
 }
 
-.glow-cyan {
-  box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.4);
+.esports-pink-glow {
+  box-shadow: 0 0 25px -5px rgba(255, 45, 120, 0.4);
 }
 
-.glow-discord {
-  box-shadow: 0 0 25px -5px rgba(88, 101, 242, 0.4);
+.esports-red-glow {
+  box-shadow: 0 0 25px -5px rgba(239, 68, 68, 0.4);
 }
 
-.glow-gold {
-  box-shadow: 0 0 25px -5px rgba(255, 184, 0, 0.4);
-}
-
-/* ── Esports Angled Cut Utility ──────────────────────────── */
-.clip-corner {
-  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
-}
-
-.clip-corner-double {
-  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
-}
-
-/* ── Scanlines Overlay ───────────────────────────────────── */
-.scanlines {
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0) 50%,
-    rgba(0, 0, 0, 0.2) 50%,
-    rgba(0, 0, 0, 0.2)
-  );
-  background-size: 100% 4px;
-}
-
-/* ── Custom Scrollbar ────────────────────────────────────── */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #060709;
+  background: #06070a;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #1e2230;
+  background: #1e293b;
   border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff1a53;
+  background: #f59e0b;
+}
+
+/* Pulse Glow Keyframes */
+@keyframes goldPulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.animate-gold-pulse {
+  animation: goldPulse 3s infinite ease-in-out;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+.scanline-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanline-effect::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 10px;
+  background: linear-gradient(to bottom, transparent, rgba(245, 158, 11, 0.15), transparent);
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
 }

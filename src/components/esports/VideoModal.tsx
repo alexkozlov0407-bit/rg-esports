@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
-import { X, Sparkles, ExternalLink, Calendar, Eye, Star } from "lucide-react";
+import { X, Play, Sparkles, ExternalLink } from "lucide-react";
+import type { VideoItem } from "@/lib/social-stats";
 import { sound } from "@/lib/sound";
-import type { VideoItem } from "@/app/api/social-stats/route";
 
 interface VideoModalProps {
   videoId: string | null;
@@ -12,37 +11,28 @@ interface VideoModalProps {
 }
 
 export function VideoModal({ videoId, videos, onClose }: VideoModalProps) {
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    if (videoId) {
-      window.addEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "unset";
-    };
-  }, [videoId, onClose]);
-
   if (!videoId) return null;
 
-  const currentVideo = videos.find((v) => v.id === videoId) || videos[0];
+  const video = videos.find((v) => v.id === videoId) || videos[0];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md"
+      onClick={onClose}
+    >
       <div
-        className="relative w-full max-w-4xl rounded-2xl border border-[#1e2230] bg-[#0c0e14] shadow-2xl overflow-hidden flex flex-col max-h-[92vh]"
+        className="relative w-full max-w-4xl rounded-2xl border border-amber-500/40 bg-[#0c1017] shadow-2xl p-4 sm:p-6 overflow-hidden max-h-[95vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header bar */}
-        <div className="flex items-center justify-between border-b border-[#1e2230] px-4 py-3 bg-[#08090d]">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-[#1a2233] pb-3 mb-4">
           <div className="flex items-center gap-2">
-            <span className="flex h-2 w-2 rounded-full bg-[#ff1a53] animate-ping" />
-            <span className="text-xs font-mono font-bold text-gray-300 uppercase">
-              ARROGANT THEATER // {currentVideo.category.toUpperCase()}
+            <span className="rounded bg-[#FF0000] px-2 py-0.5 text-[10px] font-mono font-bold text-white uppercase">
+              {video.category}
             </span>
+            <h3 className="text-sm sm:text-base font-bold font-mono text-white truncate max-w-md sm:max-w-xl">
+              {video.title}
+            </h3>
           </div>
 
           <button
@@ -50,84 +40,62 @@ export function VideoModal({ videoId, videos, onClose }: VideoModalProps) {
               sound.playClick();
               onClose();
             }}
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#1e2230] bg-[#141722] text-gray-400 hover:text-white hover:border-[#ff1a53]/50 transition-colors"
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#1a2233] bg-[#141824] text-gray-400 hover:text-white transition-colors"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
 
-        {/* Video Player Frame */}
-        <div className="relative aspect-video w-full bg-black">
+        {/* Embedded Player */}
+        <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-black border border-[#1a2233] shadow-inner">
           <iframe
-            src={`https://www.youtube-nocookie.com/embed/${currentVideo.id}?autoplay=1&rel=0`}
-            title={currentVideo.title}
-            className="h-full w-full border-0"
+            src={`https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0`}
+            title={video.title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
+            className="h-full w-full"
           />
         </div>
 
-        {/* Video Meta & Summary Details (Scrollable if tall) */}
-        <div className="p-5 sm:p-6 overflow-y-auto space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div>
-              <h3 className="text-lg sm:text-xl font-black text-white leading-snug">
-                {currentVideo.title}
-              </h3>
-              <div className="mt-1 flex items-center gap-4 text-xs font-mono text-gray-400">
-                <span className="flex items-center gap-1">
-                  <Eye className="h-3.5 w-3.5 text-[#00f0ff]" />
-                  {currentVideo.views} views
-                </span>
-                <span className="flex items-center gap-1">
-                  <Star className="h-3.5 w-3.5 text-[#ffb800] fill-[#ffb800]" />
-                  5.0 rating
-                </span>
-                <span className="flex items-center gap-1">
-                  <Calendar className="h-3.5 w-3.5" />
-                  {new Date(currentVideo.published).toLocaleDateString()}
-                </span>
-              </div>
-            </div>
-
-            <a
-              href={currentVideo.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => sound.playClick()}
-              className="inline-flex items-center gap-2 rounded-xl bg-[#FF0000] hover:bg-[#cc0000] text-white px-4 py-2 text-xs font-mono font-bold transition-all shrink-0"
-            >
-              <span>WATCH ON YOUTUBE</span>
-              <ExternalLink className="h-3.5 w-3.5" />
-            </a>
+        {/* Video Breakdown Details */}
+        <div className="mt-4 space-y-3">
+          <div>
+            <h4 className="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+              <Sparkles className="h-3.5 w-3.5" />
+              STRATEGIC RECAP & OVERVIEW
+            </h4>
+            <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+              {video.summary}
+            </p>
           </div>
 
-          {/* AI Strategic Summary Box */}
-          <div className="rounded-xl border border-[#ff1a53]/30 bg-[#ff1a53]/10 p-4">
-            <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#ff1a53] uppercase mb-2">
-              <Sparkles className="h-4 w-4" />
-              AI STRATEGIC SUMMARY
-            </div>
-            <p className="text-xs sm:text-sm text-gray-200 leading-relaxed">
-              {currentVideo.summary}
-            </p>
-
-            {currentVideo.keyTakeaways && currentVideo.keyTakeaways.length > 0 && (
-              <div className="mt-3 pt-3 border-t border-[#ff1a53]/20 space-y-1.5">
-                <div className="text-[11px] font-mono font-bold text-gray-300 uppercase">
-                  KEY STRATEGIC TAKEAWAYS:
-                </div>
-                {currentVideo.keyTakeaways.map((takeaway, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-start gap-2 text-xs text-gray-300"
-                  >
-                    <span className="text-[#00f0ff] font-bold">›</span>
-                    <span>{takeaway}</span>
-                  </div>
-                ))}
+          {video.keyTakeaways && video.keyTakeaways.length > 0 && (
+            <div className="rounded-xl border border-[#1a2233] bg-[#07090f] p-3.5">
+              <div className="text-xs font-mono font-bold text-gray-400 uppercase tracking-wider mb-2">
+                KEY COMPETITIVE TAKEAWAYS:
               </div>
-            )}
+              <ul className="space-y-1 text-xs text-gray-300">
+                {video.keyTakeaways.map((takeaway, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+                    <span>{takeaway}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <div className="flex items-center justify-between pt-2 border-t border-[#1a2233] text-xs font-mono">
+            <span className="text-gray-400">{video.views} Verified Views</span>
+            <a
+              href={`https://www.youtube.com/watch?v=${video.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#FF0000] hover:text-white flex items-center gap-1 font-bold"
+            >
+              <span>Watch directly on YouTube</span>
+              <ExternalLink className="h-3 w-3" />
+            </a>
           </div>
         </div>
       </div>

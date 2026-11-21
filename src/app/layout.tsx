@@ -13,32 +13,39 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Arrogant Esports (ARGT) | High Impact Competitive Gaming",
+  metadataBase: new URL("https://rgesports.vercel.app"),
+  title: "Republic of Golds (RG Esports) | Competitive Rocket League",
   description:
-    "Official website of Arrogant Esports. Founded by ARGT Cake2x (Est. Nov 15, 2026). Live social media counters, competitive roster, YouTube video summaries, and Discord scrim recruitment.",
+    "Official website of Republic of Golds (RG Esports). A server dedicated to the community, and to winning. 7 MMR competitive squads (D1 to SSL 2000+), The RG Academy, free coaching, and transatlantic NA & EU rosters.",
   keywords: [
-    "Arrogant Esports",
-    "ARGT",
-    "ARGT Cake2x",
-    "High Impact Esports",
-    "Fortnite Competitive",
-    "PR 680",
-    "Esports Roster",
-    "Gaming Team",
+    "Republic of Golds",
+    "RG Esports",
+    "Rocket League Esports",
+    "RG Province",
+    "RG Nightshift",
+    "RG Ascension",
+    "RG Dynasty",
+    "RG Vanguard",
+    "RG Sovereign",
+    "Vey",
+    "Rocket League Academy",
+    "RLCS Open",
+    "Free Coaching",
+    "Competitive Scrims",
   ],
-  authors: [{ name: "ARGT Cake2x" }],
+  authors: [{ name: "[NA] Vey †" }],
   openGraph: {
-    title: "Arrogant Esports (ARGT) | High Impact Esports",
+    title: "Republic of Golds (RG Esports) | Dedicated to Winning",
     description:
-      "An esports team designed to make a change in the competitive scene. Founded by ARGT Cake2x.",
-    url: "https://sites.google.com/view/arrogant-esports/home",
-    siteName: "Arrogant Esports",
+      "RG (Republic of golds) Esports is dedicated to the community, and to winning. Competing in leagues, RLCS opens, and fostering the next generation of Rocket League talent.",
+    url: "https://rgesports.carrd.co/",
+    siteName: "Republic of Golds (RG Esports)",
     images: [
       {
-        url: "https://yt3.googleusercontent.com/9yqp-lOH4ws2jsSwdB-1vauTiDwHTS542H9NvNWob-ujR58Te4_zFaJ3maQfxu0vcAG0y4z3aA=s900-c-k-c0x00ffffff-no-rj",
-        width: 900,
-        height: 900,
-        alt: "Arrogant Esports Official Crest",
+        url: "/images/branding/rg-logo.jpg",
+        width: 800,
+        height: 800,
+        alt: "Republic of Golds Official Crest",
       },
     ],
     locale: "en_US",
@@ -46,23 +53,22 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Arrogant Esports (ARGT)",
-    description: "High Impact Competitive Gaming • Est. Nov 15, 2026",
-    images: [
-      "https://yt3.googleusercontent.com/9yqp-lOH4ws2jsSwdB-1vauTiDwHTS542H9NvNWob-ujR58Te4_zFaJ3maQfxu0vcAG0y4z3aA=s900-c-k-c0x00ffffff-no-rj",
-    ],
+    title: "Republic of Golds (RG Esports)",
+    description: "Dedicated to the community, and to winning. Competitive Rocket League NA & EU.",
+    images: ["/images/branding/rg-logo.jpg"],
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
-    >
-      <body className="min-h-full flex flex-col bg-[#060709] text-gray-100 selection:bg-[#ff1a53] selection:text-white">
+    <html lang="en" className="dark scroll-smooth">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-amber-500 selection:text-black`}
+      >
         {children}
       </body>
     </html>

@@ -1,33 +1,50 @@
 "use client";
 
-import { useState } from "react";
-import { X, Check, Copy, Flame, ExternalLink, ShieldAlert } from "lucide-react";
+import { useState, useEffect } from "react";
+import { X, Check, Copy, Flame, ExternalLink, ShieldAlert, Gamepad2, Sparkles } from "lucide-react";
 import { sound } from "@/lib/sound";
 
 interface TryoutModalProps {
   isOpen: boolean;
   onClose: () => void;
+  defaultTeam?: string;
+  defaultRank?: string;
 }
 
-export function TryoutModal({ isOpen, onClose }: TryoutModalProps) {
+export function TryoutModal({
+  isOpen,
+  onClose,
+  defaultTeam = "RG Ascension",
+  defaultRank = "Diamond 3 - Champion 1",
+}: TryoutModalProps) {
   const [epicName, setEpicName] = useState("");
-  const [pr, setPr] = useState("");
-  const [region, setRegion] = useState("NA-East");
-  const [inputDevice, setInputDevice] = useState("Controller");
-  const [discordTag, setDiscordTag] = useState("");
   const [trackerLink, setTrackerLink] = useState("");
+  const [rank, setRank] = useState(defaultRank);
+  const [peakMmr, setPeakMmr] = useState("1200");
+  const [region, setRegion] = useState("North America (NA)");
+  const [targetTeam, setTargetTeam] = useState(defaultTeam);
+  const [preferredRole, setPreferredRole] = useState("3v3 Rotation & Striker");
+  const [discordTag, setDiscordTag] = useState("");
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (defaultTeam) setTargetTeam(defaultTeam);
+    if (defaultRank) setRank(defaultRank);
+  }, [defaultTeam, defaultRank]);
 
   if (!isOpen) return null;
 
-  const generatedApplication = `[ARROGANT ESPORTS SCOUTING APPLICATION]
-Epic ID: ${epicName || "N/A"}
-Power Ranking: ${pr || "0"} PR
+  const generatedApplication = `[REPUBLIC OF GOLDS (RG ESPORTS) SCOUTING TICKET]
+Epic Games ID: ${epicName || "N/A"}
+Rocket League Tracker: ${trackerLink || "https://rocketleague.tracker.network/..."}
+Current 3v3 Rank: ${rank}
+Peak Competitive MMR: ${peakMmr} MMR
 Region: ${region}
-Input Device: ${inputDevice}
-Discord: ${discordTag || "N/A"}
-Tracker/Clips: ${trackerLink || "N/A"}
-Target Team: Arrogant Esports (ARGT)`;
+Target Squad: ${targetTeam}
+Preferred Style/Role: ${preferredRole}
+Discord Tag: ${discordTag || "N/A"}
+Application Type: Roster Tryout / Academy Placement
+Submission: Verified via RG Esports Official Portal`;
 
   const handleCopyAndGo = () => {
     sound.playHype();
@@ -36,23 +53,23 @@ Target Team: Arrogant Esports (ARGT)`;
       setCopied(true);
       setTimeout(() => {
         setCopied(false);
-        window.open("https://discord.com/invite/H6jcHyeDA", "_blank");
-      }, 800);
+        window.open("https://discord.gg/hKGrmywnks", "_blank");
+      }, 700);
     }
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
       <div
-        className="relative w-full max-w-lg rounded-2xl border border-[#00f0ff]/40 bg-[#0c0e14] shadow-2xl p-6 overflow-hidden max-h-[95vh] overflow-y-auto"
+        className="relative w-full max-w-2xl rounded-2xl border border-amber-500/50 bg-[#0c1017] shadow-2xl p-6 overflow-hidden max-h-[95vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[#1e2230] pb-4">
+        <div className="flex items-center justify-between border-b border-[#1a2233] pb-4 mb-4">
           <div className="flex items-center gap-2">
-            <Flame className="h-5 w-5 text-[#00f0ff]" />
+            <Gamepad2 className="h-5 w-5 text-amber-400" />
             <h3 className="text-lg font-black text-white font-mono uppercase">
-              ARROGANT SCOUTING PORTAL
+              RG ESPORTS SCOUTING PORTAL
             </h3>
           </div>
 
@@ -61,114 +78,165 @@ Target Team: Arrogant Esports (ARGT)`;
               sound.playClick();
               onClose();
             }}
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#1e2230] bg-[#141722] text-gray-400 hover:text-white transition-colors"
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#1a2233] bg-[#141824] text-gray-400 hover:text-white transition-colors"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
 
         {/* Instructions */}
-        <p className="mt-4 text-xs text-gray-400 leading-relaxed">
-          Fill in your competitive stats below. We will format your application to paste into the official Arrogant Esports Discord <strong className="text-white">#tryouts</strong> channel.
-        </p>
+        <div className="mb-5 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3.5 text-xs text-amber-200 leading-relaxed font-mono">
+          <p>
+            <strong>SUBMISSION REQUIREMENT:</strong> RG Esports rosters are split into 7 MMR tiers. To try out for competitive squads or join the free Academy, you must submit your <strong>Rocket League Tracker URL</strong> in a ticket.
+          </p>
+        </div>
 
-        {/* Form Fields */}
-        <div className="mt-5 space-y-3 font-mono text-xs">
+        {/* Two Column Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-gray-400 mb-1">EPIC GAMES / IN-GAME NAME</label>
+            <label className="block text-xs font-mono font-bold text-gray-300 uppercase mb-1">
+              Epic Games ID / Gamertag:
+            </label>
             <input
               type="text"
+              placeholder="e.g. VeyOnTop"
               value={epicName}
               onChange={(e) => setEpicName(e.target.value)}
-              placeholder="e.g. ARGT_Player1"
-              className="w-full rounded-lg border border-[#1e2230] bg-[#08090d] px-3 py-2 text-white placeholder-gray-600 focus:border-[#00f0ff] focus:outline-none"
+              className="w-full rounded-xl border border-[#1a2233] bg-[#07090e] px-3.5 py-2 text-xs font-mono text-white placeholder-gray-600 focus:border-amber-400 focus:outline-none"
             />
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-gray-400 mb-1">ESTIMATED PR</label>
-              <input
-                type="text"
-                value={pr}
-                onChange={(e) => setPr(e.target.value)}
-                placeholder="e.g. 680"
-                className="w-full rounded-lg border border-[#1e2230] bg-[#08090d] px-3 py-2 text-white placeholder-gray-600 focus:border-[#00f0ff] focus:outline-none"
-              />
-            </div>
-            <div>
-              <label className="block text-gray-400 mb-1">COMPETITIVE REGION</label>
-              <select
-                value={region}
-                onChange={(e) => setRegion(e.target.value)}
-                className="w-full rounded-lg border border-[#1e2230] bg-[#08090d] px-3 py-2 text-white focus:border-[#00f0ff] focus:outline-none"
-              >
-                <option value="NA-East">NA-East (US)</option>
-                <option value="NA-Central">NA-Central (US)</option>
-                <option value="NA-West">NA-West (US)</option>
-                <option value="Japan/Asia">Japan / Asia (JP)</option>
-                <option value="Europe">Europe (EU)</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-gray-400 mb-1">INPUT HARDWARE</label>
-              <select
-                value={inputDevice}
-                onChange={(e) => setInputDevice(e.target.value)}
-                className="w-full rounded-lg border border-[#1e2230] bg-[#08090d] px-3 py-2 text-white focus:border-[#00f0ff] focus:outline-none"
-              >
-                <option value="Controller">Controller (PS5/Xbox/PC)</option>
-                <option value="Keyboard & Mouse">Keyboard & Mouse (PC)</option>
-                <option value="Hybrid">Hybrid Input</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-gray-400 mb-1">DISCORD USERNAME</label>
-              <input
-                type="text"
-                value={discordTag}
-                onChange={(e) => setDiscordTag(e.target.value)}
-                placeholder="e.g. yourname"
-                className="w-full rounded-lg border border-[#1e2230] bg-[#08090d] px-3 py-2 text-white placeholder-gray-600 focus:border-[#00f0ff] focus:outline-none"
-              />
-            </div>
           </div>
 
           <div>
-            <label className="block text-gray-400 mb-1">TRACKER / CLIPS LINK</label>
+            <label className="block text-xs font-mono font-bold text-gray-300 uppercase mb-1">
+              RL Tracker Profile Link:
+            </label>
             <input
               type="text"
+              placeholder="https://rocketleague.tracker.network/..."
               value={trackerLink}
               onChange={(e) => setTrackerLink(e.target.value)}
-              placeholder="e.g. fortnitetracker.com/profile/..."
-              className="w-full rounded-lg border border-[#1e2230] bg-[#08090d] px-3 py-2 text-white placeholder-gray-600 focus:border-[#00f0ff] focus:outline-none"
+              className="w-full rounded-xl border border-[#1a2233] bg-[#07090e] px-3.5 py-2 text-xs font-mono text-white placeholder-gray-600 focus:border-amber-400 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-mono font-bold text-gray-300 uppercase mb-1">
+              Current Rank:
+            </label>
+            <select
+              value={rank}
+              onChange={(e) => setRank(e.target.value)}
+              className="w-full rounded-xl border border-[#1a2233] bg-[#07090e] px-3.5 py-2 text-xs font-mono text-white focus:border-amber-400 focus:outline-none"
+            >
+              <option value="Gold & Under (Academy)">Gold & Under (Academy)</option>
+              <option value="Platinum (Academy)">Platinum (Academy)</option>
+              <option value="Diamond 1 - Diamond 2">Diamond 1 - Diamond 2</option>
+              <option value="Diamond 3 - Champion 1">Diamond 3 - Champion 1</option>
+              <option value="Champion 2 - Champion 3">Champion 2 - Champion 3</option>
+              <option value="Grand Champion 1 - GC2">Grand Champion 1 - GC2</option>
+              <option value="Grand Champion 3 - SSL">Grand Champion 3 - SSL</option>
+              <option value="Supersonic Legend (2000+ MMR)">Supersonic Legend (2000+ MMR)</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-xs font-mono font-bold text-gray-300 uppercase mb-1">
+              Peak MMR:
+            </label>
+            <input
+              type="text"
+              placeholder="e.g. 1180"
+              value={peakMmr}
+              onChange={(e) => setPeakMmr(e.target.value)}
+              className="w-full rounded-xl border border-[#1a2233] bg-[#07090e] px-3.5 py-2 text-xs font-mono text-white placeholder-gray-600 focus:border-amber-400 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-mono font-bold text-gray-300 uppercase mb-1">
+              Region:
+            </label>
+            <select
+              value={region}
+              onChange={(e) => setRegion(e.target.value)}
+              className="w-full rounded-xl border border-[#1a2233] bg-[#07090e] px-3.5 py-2 text-xs font-mono text-white focus:border-amber-400 focus:outline-none"
+            >
+              <option value="North America (NA)">North America (NA)</option>
+              <option value="Europe (EU)">Europe (EU)</option>
+              <option value="Other / Global">Other / Global</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-xs font-mono font-bold text-gray-300 uppercase mb-1">
+              Target Squad / Division:
+            </label>
+            <select
+              value={targetTeam}
+              onChange={(e) => setTargetTeam(e.target.value)}
+              className="w-full rounded-xl border border-[#1a2233] bg-[#07090e] px-3.5 py-2 text-xs font-mono text-white focus:border-amber-400 focus:outline-none"
+            >
+              <option value="RG Esports (SSL+ 2000+) - NA">RG Esports (SSL+ 2000+) - NA</option>
+              <option value="RG Sovereign (GC3-SSL) - NA">RG Sovereign (GC3-SSL) - NA</option>
+              <option value="RG Vanguard (GC1-GC2) - NA">RG Vanguard (GC1-GC2) - NA</option>
+              <option value="RG Dynasty (C2-C3) - NA">RG Dynasty (C2-C3) - NA</option>
+              <option value="RG Ascension (D3-C1) - NA">RG Ascension (D3-C1) - NA</option>
+              <option value="RG Nightshift (D3-C1) - NA">RG Nightshift (D3-C1) - NA</option>
+              <option value="RG Province (D1-D2) - NA">RG Province (D1-D2) - NA</option>
+              <option value="RG Mainstream (GC1-GC2) - EU">RG Mainstream (GC1-GC2) - EU</option>
+              <option value="RG Twilight (C1-C3) - EU">RG Twilight (C1-C3) - EU</option>
+              <option value="RG Rush (D3-C1) - EU">RG Rush (D3-C1) - EU</option>
+              <option value="The RG Academy (Diamond / Plat / Gold)">The RG Academy (Diamond / Plat / Gold)</option>
+            </select>
+          </div>
+
+          <div className="md:col-span-2">
+            <label className="block text-xs font-mono font-bold text-gray-300 uppercase mb-1">
+              Your Discord Username:
+            </label>
+            <input
+              type="text"
+              placeholder="e.g. alex_rl or username#0000"
+              value={discordTag}
+              onChange={(e) => setDiscordTag(e.target.value)}
+              className="w-full rounded-xl border border-[#1a2233] bg-[#07090e] px-3.5 py-2 text-xs font-mono text-white placeholder-gray-600 focus:border-amber-400 focus:outline-none"
             />
           </div>
         </div>
 
-        {/* Live Preview of formatted application */}
-        <div className="mt-4 rounded-lg border border-[#1e2230] bg-[#08090d] p-3 text-[11px] font-mono text-gray-300">
-          <div className="text-[10px] text-gray-500 uppercase mb-1">CLIPBOARD PREVIEW:</div>
-          <pre className="whitespace-pre-wrap">{generatedApplication}</pre>
+        {/* Live Preview Box */}
+        <div className="mt-5 rounded-xl border border-[#1a2233] bg-[#07090f] p-3.5">
+          <div className="text-[10px] font-mono font-bold text-gray-500 uppercase tracking-widest mb-1">
+            GENERATED DISCORD TICKET CONTENT:
+          </div>
+          <pre className="text-[11px] font-mono text-gray-300 whitespace-pre-wrap leading-relaxed overflow-x-auto max-h-36">
+            {generatedApplication}
+          </pre>
         </div>
 
-        {/* Submit Action */}
-        <div className="mt-6 flex flex-col gap-2">
+        {/* Actions */}
+        <div className="mt-5 pt-4 border-t border-[#1a2233] flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="text-[11px] font-mono text-gray-400">
+            * Teams are captained not managed. Captains & Managers evaluate tickets.
+          </div>
+
           <button
             onClick={handleCopyAndGo}
-            className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#00f0ff] to-[#00b4d8] text-black px-4 py-3 text-xs font-mono font-black uppercase tracking-wider shadow-lg shadow-[#00f0ff]/20 hover:scale-102 transition-all"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 px-6 py-3 text-xs font-mono font-bold text-black hover:from-amber-400 hover:to-amber-500 transition-all shadow-lg shadow-amber-500/20 active:scale-95"
           >
-            {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-            <span>{copied ? "COPIED! OPENING DISCORD..." : "COPY APPLICATION & OPEN DISCORD"}</span>
-            <ExternalLink className="h-3.5 w-3.5" />
+            {copied ? (
+              <>
+                <Check className="h-4 w-4" />
+                <span>COPIED! OPENING DISCORD...</span>
+              </>
+            ) : (
+              <>
+                <Copy className="h-4 w-4" />
+                <span>COPY & OPEN DISCORD TICKET</span>
+                <ExternalLink className="h-3.5 w-3.5" />
+              </>
+            )}
           </button>
-
-          <p className="text-[10px] text-center text-gray-500 font-mono mt-1">
-            After clicking, paste into the #tryouts channel on the Arrogant Esports Discord server.
-          </p>
         </div>
       </div>
     </div>

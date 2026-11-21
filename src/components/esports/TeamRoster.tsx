@@ -1,227 +1,496 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Trophy,
-  DollarSign,
   Crown,
   Gamepad2,
   ExternalLink,
-  Target,
+  Shield,
   Sparkles,
   Flame,
   UserPlus,
+  Users,
+  Eye,
+  X,
+  Filter,
 } from "lucide-react";
 import { sound } from "@/lib/sound";
 
 interface TeamRosterProps {
-  onOpenTryout: () => void;
+  onOpenTryoutWithTeam: (teamName: string, rank: string) => void;
 }
 
-export function TeamRoster({ onOpenTryout }: TeamRosterProps) {
-  const captainStats = [
-    { label: "COMPETITIVE PR", value: "680 PR", highlight: true, note: "Estimated Power Ranking" },
-    { label: "RECORDED EARNINGS", value: "$0", highlight: false, note: "Championship Quest" },
-    { label: "PRIMARY DISCIPLINE", value: "FORTNITE COMP", highlight: false, note: "BR & Zero Build Cups" },
-    { label: "CLAN IDENTIFIER", value: "fg", highlight: false, note: "Registered Guild Tag" },
-  ];
+export interface TeamData {
+  id: string;
+  name: string;
+  region: "NA" | "EU";
+  mmr: string;
+  tier: "SSL" | "GC" | "Champ" | "Diamond";
+  badgeImage: string;
+  badgeGlow: string;
+  accentColor: string;
+  status: "Active Roster" | "Scouting Starters" | "In Development";
+  captain: string;
+  player2: string;
+  player3: string;
+  subs: string[];
+  description: string;
+}
 
-  const skillBars = [
-    { skill: "Tournament Comms (IGL)", rating: 94 },
-    { skill: "Piece Control & Boxfights", rating: 90 },
-    { skill: "Endgame Rotations", rating: 88 },
-    { skill: "Clutch 1v2 Resilience", rating: 92 },
-  ];
+const TEAMS: TeamData[] = [
+  {
+    id: "rg-esports-ssl",
+    name: "RG Esports",
+    region: "NA",
+    mmr: "SSL+ (2000+ MMR)",
+    tier: "SSL",
+    badgeImage: "/images/branding/rg-logo.jpg",
+    badgeGlow: "rgba(245, 158, 11, 0.5)",
+    accentColor: "border-amber-400 text-amber-300",
+    status: "Scouting Starters",
+    captain: "Scouting SSL Captain",
+    player2: "Scouting Starter",
+    player3: "Scouting Starter",
+    subs: ["Open Sub Slots"],
+    description: "The flagship elite lineup of Republic of Golds. Competing in RLCS Open Qualifiers and high-tier competitive leagues.",
+  },
+  {
+    id: "rg-sovereign",
+    name: "RG Sovereign",
+    region: "NA",
+    mmr: "GC3 - SSL",
+    tier: "SSL",
+    badgeImage: "/images/branding/rg-logo.jpg",
+    badgeGlow: "rgba(245, 158, 11, 0.4)",
+    accentColor: "border-amber-500/60 text-amber-400",
+    status: "In Development",
+    captain: "Captained Lineup (Forming)",
+    player2: "Scouting Starter",
+    player3: "Scouting Starter",
+    subs: ["Open Sub Slots"],
+    description: "High Grand Champion 3 to SSL squad preparing for tournament bracket play and regional opens.",
+  },
+  {
+    id: "rg-vanguard",
+    name: "RG Vanguard",
+    region: "NA",
+    mmr: "GC1 - GC2",
+    tier: "GC",
+    badgeImage: "/images/branding/rg-logo.jpg",
+    badgeGlow: "rgba(168, 85, 247, 0.4)",
+    accentColor: "border-purple-500/60 text-purple-400",
+    status: "Active Roster",
+    captain: "Scouting Captain",
+    player2: "[NA] Smurfyopeak",
+    player3: "[NA] Bez",
+    subs: ["Open Sub Slots"],
+    description: "Grand Champion NA squad featuring starters Smurfyopeak & Bez. High mechanical speed and organized scrim focus.",
+  },
+  {
+    id: "rg-dynasty",
+    name: "RG Dynasty",
+    region: "NA",
+    mmr: "C2 - C3",
+    tier: "Champ",
+    badgeImage: "/images/branding/rg-logo.jpg",
+    badgeGlow: "rgba(99, 102, 241, 0.4)",
+    accentColor: "border-indigo-400 text-indigo-300",
+    status: "Active Roster",
+    captain: "stinkyman221",
+    player2: "[NA] 2023rto",
+    player3: "Kxursh.",
+    subs: ["Sub Slot Open"],
+    description: "Full active 3v3 Champion roster captained by stinkyman221 with 2023rto and Kxursh. Regular league contenders.",
+  },
+  {
+    id: "rg-ascension",
+    name: "RG Ascension",
+    region: "NA",
+    mmr: "D3 - C1",
+    tier: "Diamond",
+    badgeImage: "/images/teams/rg-ascension.jpg",
+    badgeGlow: "rgba(239, 68, 68, 0.5)",
+    accentColor: "border-[#ef4444] text-[#ef4444]",
+    status: "Active Roster",
+    captain: "Comphlexity",
+    player2: "Kelssius",
+    player3: "foulxyz",
+    subs: ["Carter_Rl", "[NA] X!N0"],
+    description: "Heavyweight competitive squad with full 5-player roster and custom crest. Captained by Comphlexity with deep sub bench.",
+  },
+  {
+    id: "rg-nightshift",
+    name: "RG Nightshift",
+    region: "NA",
+    mmr: "D3 - C1",
+    tier: "Diamond",
+    badgeImage: "/images/teams/rg-nightshift.jpg",
+    badgeGlow: "rgba(245, 158, 11, 0.5)",
+    accentColor: "border-amber-400 text-amber-400",
+    status: "Active Roster",
+    captain: "[NA] Team Manager | Jody",
+    player2: "Apierson",
+    player3: "[NAE] F0C4L",
+    subs: ["[NAC] Glitxh.", "ll Xzcvo ll"],
+    description: "Cosmic gold squad led by Team Manager Jody. Complete 5-man roster with Apierson, F0C4L, Glitxh., and Xzcvo.",
+  },
+  {
+    id: "rg-province",
+    name: "RG Province",
+    region: "NA",
+    mmr: "D1 - D2",
+    tier: "Diamond",
+    badgeImage: "/images/teams/rg-province.jpg",
+    badgeGlow: "rgba(255, 45, 120, 0.5)",
+    accentColor: "border-[#ff2d78] text-[#ff2d78]",
+    status: "Scouting Starters",
+    captain: "(NAE) tjdagoat.",
+    player2: "Scouting Starter",
+    player3: "Scouting Starter",
+    subs: ["Open Sub Slots"],
+    description: "Neon pink crown badge squad. Captained by (NAE) tjdagoat., looking for 2 starters to complete the D1-D2 squad.",
+  },
+  {
+    id: "rg-mainstream",
+    name: "RG Mainstream",
+    region: "EU",
+    mmr: "GC1 - GC2",
+    tier: "GC",
+    badgeImage: "/images/branding/rg-logo.jpg",
+    badgeGlow: "rgba(6, 182, 212, 0.4)",
+    accentColor: "border-cyan-400 text-cyan-300",
+    status: "Scouting Starters",
+    captain: "Scouting EU Captain",
+    player2: "Recruiting",
+    player3: "Recruiting",
+    subs: ["Open Sub Slots"],
+    description: "European Grand Champion division squad. Targeting European community leagues and scrim ladders.",
+  },
+  {
+    id: "rg-twilight",
+    name: "RG Twilight",
+    region: "EU",
+    mmr: "C1 - C3 (EU)",
+    tier: "Champ",
+    badgeImage: "/images/branding/rg-logo.jpg",
+    badgeGlow: "rgba(168, 85, 247, 0.4)",
+    accentColor: "border-purple-400 text-purple-300",
+    status: "Active Roster",
+    captain: "[EU] Admin | | Donat",
+    player2: "KlinKer07",
+    player3: "Recruiting Starter",
+    subs: ["EU | TheArtistRnG"],
+    description: "Captained by EU Admin Donat, featuring starter KlinKer07 and substitute TheArtistRnG. Regular European scrim squad.",
+  },
+  {
+    id: "rg-rush",
+    name: "RG Rush",
+    region: "EU",
+    mmr: "D3 - C1 (EU)",
+    tier: "Diamond",
+    badgeImage: "/images/branding/rg-logo.jpg",
+    badgeGlow: "rgba(14, 165, 233, 0.4)",
+    accentColor: "border-sky-400 text-sky-300",
+    status: "Scouting Starters",
+    captain: "Scouting EU Captain",
+    player2: "Recruiting",
+    player3: "Recruiting",
+    subs: ["Open Sub Slots"],
+    description: "European Diamond 3 to Champion 1 squad bridging the Academy pipeline to the EU competitive division.",
+  },
+];
+
+export function TeamRoster({ onOpenTryoutWithTeam }: TeamRosterProps) {
+  const [selectedRegion, setSelectedRegion] = useState<"ALL" | "NA" | "EU">("ALL");
+  const [selectedTier, setSelectedTier] = useState<"ALL" | "SSL" | "GC" | "Champ" | "Diamond">("ALL");
+  const [previewImage, setPreviewImage] = useState<{ src: string; title: string } | null>(null);
+
+  const filteredTeams = TEAMS.filter((team) => {
+    if (selectedRegion !== "ALL" && team.region !== selectedRegion) return false;
+    if (selectedTier !== "ALL" && team.tier !== selectedTier) return false;
+    return true;
+  });
 
   return (
-    <section id="roster" className="py-16 sm:py-20 border-b border-[#1e2230]/60 relative">
+    <section id="roster" className="py-16 sm:py-20 border-b border-[#1a2233] relative">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 border-b border-[#1e2230]">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 border-b border-[#1a2233]">
           <div>
-            <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#ff1a53] uppercase mb-2">
-              <Crown className="h-4 w-4 text-[#ff1a53]" />
-              ACTIVE SQUAD LINEUP
+            <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-amber-400 uppercase mb-2">
+              <Crown className="h-4 w-4 text-amber-400" />
+              THE REAL MEAT AND POTATOES
             </div>
             <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white uppercase">
-              TEAM <span className="text-[#ff1a53]">ROSTER</span>
+              COMPETITIVE <span className="text-amber-400">ROSTERS</span>
             </h2>
             <p className="mt-1 text-sm text-gray-400">
-              The high impact talent defining the future of Arrogant Esports.
+              10 Rocket League squads split across MMR tiers. Captained not managed.
             </p>
           </div>
 
-          <div>
+          <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={() => {
                 sound.playClick();
-                onOpenTryout();
+                onOpenTryoutWithTeam("Republic of Golds", "General Competitive");
               }}
-              className="inline-flex items-center gap-2 rounded-lg border border-[#00f0ff]/40 bg-[#00f0ff]/10 px-4 py-2 text-xs font-mono font-bold text-[#00f0ff] hover:bg-[#00f0ff]/20 transition-all"
+              className="inline-flex items-center gap-2 rounded-lg border border-amber-500/40 bg-amber-500/10 px-4 py-2 text-xs font-mono font-bold text-amber-400 hover:bg-amber-500/20 transition-all shadow-sm"
             >
               <UserPlus className="h-3.5 w-3.5" />
-              <span>SUBMIT SCOUTING APPLICATION</span>
+              <span>SUBMIT SCOUTING TICKET</span>
             </button>
           </div>
         </div>
 
-        {/* Roster Showcase Grid */}
-        <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Captain Card (Spans 2 cols on lg) */}
-          <div className="lg:col-span-2 esports-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-[#ff1a53] relative overflow-hidden">
-            {/* Background watermarked text */}
-            <div className="absolute right-4 bottom-2 text-8xl font-black text-white/[0.02] select-none pointer-events-none font-mono">
-              CAPTAIN
+        {/* Philosophy Callout Card */}
+        <div className="mt-6 rounded-xl border border-amber-500/30 bg-[#0b0e16] p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="flex items-start gap-3">
+            <div className="h-9 w-9 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center shrink-0">
+              <Shield className="h-5 w-5 text-amber-400" />
             </div>
-
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#1e2230] pb-6">
-              <div className="flex items-center gap-4">
-                {/* Avatar / Crest placeholder */}
-                <div className="relative flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border-2 border-[#ff1a53] bg-gradient-to-br from-[#1a1420] to-[#0a0b0e] shadow-lg shadow-[#ff1a53]/20">
-                  <span className="text-3xl">🇯🇵</span>
-                  <div className="absolute -bottom-2 -right-2 flex h-8 w-8 items-center justify-center rounded-full border border-[#1e2230] bg-[#0c0e14] text-sm shadow">
-                    🇺🇲
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-2xl sm:text-3xl font-black tracking-tight text-white font-mono">
-                      ARGT Cake2x
-                    </span>
-                    <span className="rounded bg-[#ff1a53] px-2 py-0.5 text-[10px] font-mono font-black text-white uppercase tracking-wider">
-                      FOUNDER & IGL
-                    </span>
-                  </div>
-                  <div className="mt-1 flex items-center gap-3 text-xs font-mono text-gray-400">
-                    <span>DISCORD: <strong className="text-gray-200">letha1cake</strong></span>
-                    <span>•</span>
-                    <span>EST. NOV 15, 2026</span>
-                  </div>
-                </div>
+            <div>
+              <div className="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">
+                CORE ROSTER GOVERNANCE
               </div>
-
-              {/* Verified badge */}
-              <div className="inline-flex items-center gap-1.5 rounded-lg border border-[#ffb800]/30 bg-[#ffb800]/10 px-3 py-1 text-xs font-mono text-[#ffb800]">
-                <Crown className="h-3.5 w-3.5" />
-                <span>ORGANIZATION FOUNDER</span>
-              </div>
+              <p className="text-xs text-gray-300 mt-0.5 leading-relaxed">
+                Teams are <strong>CAPTAINED NOT MANAGED</strong>. Captains control lineups, handle teammate disputes in VC, and can bench or remove players with Team Manager approval. Improving players request move-ups via tickets.
+              </p>
             </div>
+          </div>
 
-            {/* Metrics Row */}
-            <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {captainStats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-xl border border-[#1e2230] bg-[#08090d] p-3 text-center"
+          <a
+            href="https://discord.gg/hKGrmywnks"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => sound.playHype()}
+            className="shrink-0 inline-flex items-center gap-1.5 text-xs font-mono text-amber-400 hover:text-amber-300 transition-colors"
+          >
+            <span>View Discord Roster Channel</span>
+            <ExternalLink className="h-3 w-3" />
+          </a>
+        </div>
+
+        {/* Interactive Filter Bars */}
+        <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          {/* Region Filter */}
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-mono text-gray-400 flex items-center gap-1">
+              <Filter className="h-3 w-3 text-amber-400" />
+              REGION:
+            </span>
+            <div className="flex gap-1 bg-[#0c1017] p-1 rounded-lg border border-[#1a2233]">
+              {(["ALL", "NA", "EU"] as const).map((reg) => (
+                <button
+                  key={reg}
+                  onClick={() => {
+                    sound.playClick();
+                    setSelectedRegion(reg);
+                  }}
+                  className={`px-3 py-1 text-xs font-mono font-bold rounded-md transition-all ${
+                    selectedRegion === reg
+                      ? "bg-amber-500 text-black shadow-sm"
+                      : "text-gray-400 hover:text-white"
+                  }`}
                 >
-                  <div className="text-[10px] font-mono text-gray-400 uppercase">
-                    {stat.label}
-                  </div>
-                  <div
-                    className={`mt-1 text-xl sm:text-2xl font-black font-mono ${
-                      stat.highlight ? "text-[#00f0ff]" : "text-white"
-                    }`}
-                  >
-                    {stat.value}
-                  </div>
-                  <div className="mt-0.5 text-[9px] font-mono text-gray-500">
-                    {stat.note}
-                  </div>
-                </div>
+                  {reg === "ALL" ? "All Regions (10)" : reg === "NA" ? "North America (7)" : "Europe (3)"}
+                </button>
               ))}
             </div>
-
-            {/* Skill Matrix */}
-            <div className="mt-6 pt-6 border-t border-[#1e2230]">
-              <div className="text-xs font-mono font-bold text-gray-400 uppercase tracking-wider mb-4">
-                TACTICAL PROFILE & TOURNAMENT READINESS
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {skillBars.map((item) => (
-                  <div key={item.skill}>
-                    <div className="flex justify-between text-xs font-mono text-gray-300 mb-1">
-                      <span>{item.skill}</span>
-                      <span className="text-[#00f0ff] font-bold">{item.rating}%</span>
-                    </div>
-                    <div className="h-2 w-full rounded-full bg-[#151824] overflow-hidden">
-                      <div
-                        className="h-full rounded-full bg-gradient-to-r from-[#ff1a53] to-[#00f0ff]"
-                        style={{ width: `${item.rating}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Biography & Vision */}
-            <div className="mt-6 pt-6 border-t border-[#1e2230] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <p className="text-xs text-gray-300 leading-relaxed italic max-w-xl">
-                &ldquo;Arrogant esports was established to disrupt traditional competitive hierarchies. We play with aggression, pride, and relentless work ethic.&rdquo;
-              </p>
-              <a
-                href="https://discord.com/invite/H6jcHyeDA"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => sound.playClick()}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-[#1e2230] bg-[#141722] hover:border-[#ff1a53]/50 px-3.5 py-2 text-xs font-mono font-bold text-gray-200 hover:text-white transition-colors shrink-0"
-              >
-                <span>CONTACT VIA DISCORD</span>
-                <ExternalLink className="h-3 w-3" />
-              </a>
-            </div>
           </div>
 
-          {/* Recruitment & Scouting Card */}
-          <div className="esports-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-t-2 border-t-[#00f0ff]">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#00f0ff]/30 bg-[#00f0ff]/10 px-3 py-1 text-[11px] font-mono font-bold text-[#00f0ff] mb-4">
-                <Flame className="h-3.5 w-3.5 text-[#ff1a53]" />
-                RECRUITMENT OPEN
-              </div>
-
-              <h3 className="text-2xl font-black tracking-tight text-white uppercase">
-                BECOME AN <span className="text-[#00f0ff]">ARROGANT</span> ATHLETE
-              </h3>
-
-              <p className="mt-3 text-xs text-gray-400 leading-relaxed">
-                Arrogant Esports is actively scouting ambitious players across North America (NA) and Japan/Asia (JP) regions for competitive duos, trios, and cash cup rosters.
-              </p>
-
-              <div className="mt-6 space-y-3">
-                <div className="rounded-xl border border-[#1e2230] bg-[#08090d] p-3 text-xs font-mono">
-                  <div className="text-gray-400 uppercase text-[10px]">MINIMUM REQUIREMENT</div>
-                  <div className="text-white font-bold mt-0.5">500+ Power Ranking (PR)</div>
-                </div>
-
-                <div className="rounded-xl border border-[#1e2230] bg-[#08090d] p-3 text-xs font-mono">
-                  <div className="text-gray-400 uppercase text-[10px]">TARGET PLATFORMS</div>
-                  <div className="text-white font-bold mt-0.5">PC 240Hz / Console 120Hz</div>
-                </div>
-
-                <div className="rounded-xl border border-[#1e2230] bg-[#08090d] p-3 text-xs font-mono">
-                  <div className="text-gray-400 uppercase text-[10px]">ORGANIZATION PERKS</div>
-                  <div className="text-white font-bold mt-0.5">Scrim Hosting • Social Exposure • VOD Reviews</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-8 pt-4 border-t border-[#1e2230]">
+          {/* Tier Filter */}
+          <div className="flex flex-wrap items-center gap-1.5">
+            <span className="text-xs font-mono text-gray-400">RANK:</span>
+            {(
+              [
+                { label: "All Ranks", key: "ALL" },
+                { label: "SSL+", key: "SSL" },
+                { label: "GC1-3", key: "GC" },
+                { label: "Champ", key: "Champ" },
+                { label: "Diamond", key: "Diamond" },
+              ] as const
+            ).map((t) => (
               <button
+                key={t.key}
                 onClick={() => {
-                  sound.playHype();
-                  onOpenTryout();
+                  sound.playClick();
+                  setSelectedTier(t.key);
                 }}
-                className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#00f0ff] to-[#00b4d8] text-black px-4 py-3 text-xs font-mono font-black uppercase tracking-wider shadow-lg shadow-[#00f0ff]/20 hover:scale-102 transition-all"
+                className={`px-2.5 py-1 text-xs font-mono rounded-md border transition-all ${
+                  selectedTier === t.key
+                    ? "border-amber-400 bg-amber-500/20 text-amber-300 font-bold"
+                    : "border-[#1a2233] bg-[#0c1017] text-gray-400 hover:text-white hover:border-gray-600"
+                }`}
               >
-                <UserPlus className="h-4 w-4" />
-                <span>SUBMIT TRYOUT APPLICATION</span>
+                {t.label}
               </button>
-            </div>
+            ))}
           </div>
         </div>
+
+        {/* Team Grid */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredTeams.map((team) => (
+            <div
+              key={team.id}
+              className="esports-card rounded-2xl p-6 flex flex-col justify-between border border-[#1a2233] group hover:border-amber-500/50 transition-all relative overflow-hidden"
+            >
+              {/* Card Header with Badge */}
+              <div>
+                <div className="flex items-start justify-between gap-3 mb-4">
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => {
+                        sound.playClick();
+                        setPreviewImage({ src: team.badgeImage, title: team.name });
+                      }}
+                      className="relative h-14 w-14 shrink-0 rounded-xl overflow-hidden border border-amber-500/40 bg-black group-hover:scale-105 transition-transform"
+                      title="Click to view badge"
+                    >
+                      <Image
+                        src={team.badgeImage}
+                        alt={team.name}
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                        <Eye className="h-4 w-4 text-white" />
+                      </div>
+                    </button>
+
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-xs font-mono font-bold text-gray-400">
+                          {team.region === "NA" ? "🇺🇸 NORTH AMERICA" : "🇪🇺 EUROPE"}
+                        </span>
+                      </div>
+                      <h3 className="text-xl font-black font-mono text-white group-hover:text-amber-400 transition-colors">
+                        {team.name}
+                      </h3>
+                    </div>
+                  </div>
+
+                  <span
+                    className={`rounded-full border px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider ${team.accentColor}`}
+                  >
+                    {team.mmr}
+                  </span>
+                </div>
+
+                <p className="text-xs text-gray-300 leading-relaxed mb-4">
+                  {team.description}
+                </p>
+
+                {/* Lineup Breakdown */}
+                <div className="space-y-1.5 rounded-xl border border-[#1a2233] bg-[#07090f] p-3 text-xs font-mono">
+                  <div className="flex items-center justify-between text-gray-300">
+                    <span className="text-amber-400 font-bold flex items-center gap-1">
+                      <Crown className="h-3 w-3 text-amber-400" />
+                      CAPTAIN:
+                    </span>
+                    <span className="font-semibold text-white truncate max-w-[170px]">
+                      {team.captain}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between text-gray-300">
+                    <span className="text-gray-400">PLAYER 2:</span>
+                    <span className="text-gray-200 truncate max-w-[170px]">{team.player2}</span>
+                  </div>
+
+                  <div className="flex items-center justify-between text-gray-300">
+                    <span className="text-gray-400">PLAYER 3:</span>
+                    <span className="text-gray-200 truncate max-w-[170px]">{team.player3}</span>
+                  </div>
+
+                  {team.subs.length > 0 && (
+                    <div className="flex items-center justify-between text-gray-400 pt-1 border-t border-[#1a2233]/60 text-[11px]">
+                      <span>SUBS:</span>
+                      <span className="text-gray-300 truncate max-w-[170px]">
+                        {team.subs.join(" / ")}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Bottom Actions */}
+              <div className="mt-5 pt-4 border-t border-[#1a2233] flex items-center justify-between gap-2">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-gray-400">
+                  <span
+                    className={`h-2 w-2 rounded-full ${
+                      team.status === "Active Roster"
+                        ? "bg-emerald-400 animate-pulse"
+                        : "bg-amber-400"
+                    }`}
+                  />
+                  {team.status}
+                </span>
+
+                <button
+                  onClick={() => {
+                    sound.playClick();
+                    onOpenTryoutWithTeam(team.name, team.mmr);
+                  }}
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-1.5 text-xs font-mono font-bold text-amber-400 hover:bg-amber-500/20 transition-colors"
+                >
+                  <UserPlus className="h-3 w-3" />
+                  <span>APPLY</span>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
+
+      {/* Badge Fullscreen Modal */}
+      <AnimatePresence>
+        {previewImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+            onClick={() => setPreviewImage(null)}
+          >
+            <div
+              className="relative max-w-md w-full rounded-2xl border border-amber-500/50 bg-[#0c1017] p-6 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-[#1a2233] mb-4">
+                <h4 className="text-sm font-black font-mono uppercase text-white">
+                  {previewImage.title} Official Crest
+                </h4>
+                <button
+                  onClick={() => setPreviewImage(null)}
+                  className="h-7 w-7 rounded-lg border border-[#1a2233] bg-[#141824] flex items-center justify-center text-gray-400 hover:text-white"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
+              <div className="relative aspect-square w-full rounded-xl overflow-hidden border border-amber-500/30">
+                <Image
+                  src={previewImage.src}
+                  alt={previewImage.title}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+
+              <div className="mt-4 text-center">
+                <div className="text-xs font-mono text-gray-400">
+                  Official Republic of Golds Team Asset
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

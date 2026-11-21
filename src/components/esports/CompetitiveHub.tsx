@@ -1,71 +1,126 @@
 "use client";
 
-import { Calendar, Trophy, Crosshair, Clock, ShieldCheck, Zap, ExternalLink } from "lucide-react";
+import { useState, useEffect } from "react";
+import {
+  Calendar,
+  Trophy,
+  Crosshair,
+  Clock,
+  ShieldCheck,
+  Zap,
+  ExternalLink,
+  Flame,
+  Gamepad2,
+} from "lucide-react";
 import { sound } from "@/lib/sound";
 
+interface MatchEvent {
+  title: string;
+  type: "RLCS Qualifier" | "Organized League" | "Community Scrims" | "Academy Gauntlet";
+  schedule: string;
+  status: "REGISTRATION ACTIVE" | "ROSTER PREPARATION" | "OPEN SCRIM LOBBY";
+  region: "NA & EU" | "North America" | "Europe";
+  format: string;
+  badgeColor: string;
+  description: string;
+}
+
+const EVENTS: MatchEvent[] = [
+  {
+    title: "European RLCS Open Qualifiers",
+    type: "RLCS Qualifier",
+    schedule: "Saturday 14:00 CET",
+    status: "ROSTER PREPARATION",
+    region: "Europe",
+    format: "3v3 Double Elimination Bracket",
+    badgeColor: "text-amber-400 border-amber-400/40 bg-amber-400/10",
+    description: "Honoring our historic Top 185 EU RLCS Open milestone. RG European rosters (Mainstream, Twilight, Rush) preparing for next open circuit.",
+  },
+  {
+    title: "Organized Competitive League Matchday",
+    type: "Organized League",
+    schedule: "Thursday & Sunday 20:00 EST",
+    status: "REGISTRATION ACTIVE",
+    region: "North America",
+    format: "Bo5 Series • RG Dynasty & Ascension",
+    badgeColor: "text-cyan-400 border-cyan-400/40 bg-cyan-400/10",
+    description: "Official weekly league schedule pitting RG competitive squads against rival North American esports organizations.",
+  },
+  {
+    title: "Friday Night RG Customs & Scrims",
+    type: "Community Scrims",
+    schedule: "Friday 20:30 EST",
+    status: "OPEN SCRIM LOBBY",
+    region: "NA & EU",
+    format: "Captained 3v3 & 2v2 Scrims",
+    badgeColor: "text-[#ff2d78] border-[#ff2d78]/40 bg-[#ff2d78]/10",
+    description: "Open to all verified Discord members and competitive squad substitutes. Coached and casted by RG staff.",
+  },
+  {
+    title: "Academy 1v1 & 2v2 Replay Review Gauntlet",
+    type: "Academy Gauntlet",
+    schedule: "Wednesday 19:00 EST",
+    status: "REGISTRATION ACTIVE",
+    region: "North America",
+    format: "Free Coaching with Jonh Magazoni & Tay",
+    badgeColor: "text-emerald-400 border-emerald-400/40 bg-emerald-400/10",
+    description: "Hands-on replay analysis and mechanics coaching for Diamond, Plat, and Gold Academy members.",
+  },
+];
+
 export function CompetitiveHub() {
-  const events = [
-    {
-      title: "Friday Night Bragging Rights",
-      type: "Weekly Tournament",
-      date: "Friday 19:00 EST",
-      status: "ACTIVE SCRIM REGISTRATION",
-      region: "NA-East / NA-Central",
-      format: "Trios Battle Royale",
-      badgeColor: "text-[#00f0ff] border-[#00f0ff]/30 bg-[#00f0ff]/10",
-    },
-    {
-      title: "Solo Victory Cash Cup",
-      type: "Official Cash Tournament",
-      date: "Saturday 15:00 EST",
-      status: "PR QUALIFICATION PREP",
-      region: "Global Competitive",
-      format: "Solo Battle Royale",
-      badgeColor: "text-[#ffb800] border-[#ffb800]/30 bg-[#ffb800]/10",
-    },
-    {
-      title: "Arrogant Customs: Boxfights & Zone Wars",
-      type: "Community Scrimmage",
-      date: "Daily 20:00 EST",
-      status: "OPEN TO DISCORD MEMBERS",
-      region: "NA / JP Cross-Region",
-      format: "1v1 & 2v2 Scrim Lobbies",
-      badgeColor: "text-[#ff1a53] border-[#ff1a53]/30 bg-[#ff1a53]/10",
-    },
-  ];
+  const [countdown, setCountdown] = useState({ hours: 14, minutes: 22, seconds: 45 });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
+        if (prev.minutes > 0) return { ...prev, minutes: 59, seconds: 59 };
+        if (prev.hours > 0) return { hours: prev.hours - 1, minutes: 59, seconds: 59 };
+        return { hours: 24, minutes: 0, seconds: 0 };
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
-    <section id="scrims" className="py-16 sm:py-20 border-b border-[#1e2230]/60 relative">
+    <section id="scrims" className="py-16 sm:py-20 border-b border-[#1a2233] relative">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 border-b border-[#1e2230]">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 border-b border-[#1a2233]">
           <div>
-            <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#00f0ff] uppercase mb-2">
-              <Crosshair className="h-4 w-4 text-[#00f0ff]" />
-              TOURNAMENT RADAR
+            <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase mb-2">
+              <Crosshair className="h-4 w-4 text-cyan-400" />
+              TOURNAMENT & LEAGUE RADAR
             </div>
             <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white uppercase">
-              SCRIMS & <span className="text-[#00f0ff]">SCHEDULE</span>
+              COMPETITIVE <span className="text-cyan-400">ITINERARY</span>
             </h2>
             <p className="mt-1 text-sm text-gray-400">
-              Weekly competitive itinerary and custom tournament scrimmage lobbies.
+              RLCS open brackets, organized league campaigns, and weekly captained scrims.
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-2 rounded-lg border border-[#1e2230] bg-[#0c0e14] px-3.5 py-1.5 text-xs font-mono text-gray-300">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-              LOBBIES HOSTED ON DISCORD
-            </span>
+          {/* Countdown Clock */}
+          <div className="flex items-center gap-3 bg-[#0c1017] px-4 py-2 rounded-xl border border-[#1a2233]">
+            <Clock className="h-4 w-4 text-amber-400 animate-pulse" />
+            <div className="text-xs font-mono">
+              <span className="text-gray-400">NEXT SCRIM LOBBY IN:</span>{" "}
+              <strong className="text-amber-400 font-black">
+                {String(countdown.hours).padStart(2, "0")}h :{" "}
+                {String(countdown.minutes).padStart(2, "0")}m :{" "}
+                {String(countdown.seconds).padStart(2, "0")}s
+              </strong>
+            </div>
           </div>
         </div>
 
         {/* Schedule Cards */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-          {events.map((evt) => (
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {EVENTS.map((evt) => (
             <div
               key={evt.title}
-              className="esports-card rounded-2xl p-6 flex flex-col justify-between border border-[#1e2230]"
+              className="esports-card rounded-2xl p-6 flex flex-col justify-between border border-[#1a2233] group hover:border-cyan-500/50 transition-all"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3">
@@ -76,38 +131,44 @@ export function CompetitiveHub() {
                   </span>
                   <div className="flex items-center gap-1 text-[11px] font-mono text-gray-400">
                     <Clock className="h-3 w-3" />
-                    {evt.date}
+                    {evt.schedule}
                   </div>
                 </div>
 
-                <h3 className="text-lg font-black text-white">{evt.title}</h3>
+                <h3 className="text-lg font-black font-mono text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                  {evt.title}
+                </h3>
 
-                <div className="mt-4 space-y-2 rounded-xl border border-[#1e2230] bg-[#08090d] p-3 text-xs font-mono">
-                  <div className="flex justify-between text-gray-400">
-                    <span>REGION:</span>
-                    <span className="text-white font-semibold">{evt.region}</span>
+                <p className="text-xs text-gray-300 leading-relaxed mb-4">
+                  {evt.description}
+                </p>
+
+                <div className="space-y-1.5 rounded-xl border border-[#1a2233] bg-[#07090f] p-3 text-xs font-mono">
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-400">REGION:</span>
+                    <span className="text-gray-200 font-semibold">{evt.region}</span>
                   </div>
-                  <div className="flex justify-between text-gray-400">
-                    <span>FORMAT:</span>
-                    <span className="text-[#00f0ff] font-semibold">{evt.format}</span>
-                  </div>
-                  <div className="flex justify-between text-gray-400">
-                    <span>STATUS:</span>
-                    <span className="text-emerald-400 font-semibold">{evt.status}</span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-400">FORMAT:</span>
+                    <span className="text-amber-400 font-semibold">{evt.format}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[#1e2230]">
+              <div className="mt-5 pt-4 border-t border-[#1a2233] flex items-center justify-between">
+                <span className="inline-flex items-center gap-1 text-[10px] font-mono text-emerald-400 font-bold">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  {evt.status}
+                </span>
+
                 <a
-                  href="https://discord.com/invite/H6jcHyeDA"
+                  href="https://discord.gg/hKGrmywnks"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => sound.playClick()}
-                  className="flex items-center justify-center gap-2 rounded-xl bg-[#141722] hover:bg-[#1f2436] text-xs font-mono font-bold text-gray-200 hover:text-white px-4 py-2.5 border border-[#1e2230] transition-colors"
+                  className="inline-flex items-center gap-1 text-xs font-mono font-bold text-cyan-400 hover:text-white transition-colors"
                 >
-                  <Zap className="h-3.5 w-3.5 text-[#00f0ff]" />
-                  <span>JOIN SCRIM LOBBY</span>
+                  <span>RSVP</span>
                   <ExternalLink className="h-3 w-3" />
                 </a>
               </div>
