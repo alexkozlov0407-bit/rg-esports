@@ -1,11 +1,11 @@
 {
   "name": "voltix-esports",
   "version": "1.0.0",
-  "description": "Official Website for Voltix Esports (VLTX)",
+  "description": "Official Website for Voltix Esports (VLTX) - Competitive Fortnite, Live Media Hub, and Creator Roster",
   "main": "index.html",
   "scripts": {
-    "start": "npx serve .",
-    "dev": "python3 -m http.server 3000",
+    "start": "npx serve -l 3002 .",
+    "dev": "python3 -m http.server 3002",
     "deploy:vercel": "npx vercel --prod",
     "deploy:netlify": "npx netlify deploy --prod --dir=."
   },
