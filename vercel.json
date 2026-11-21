@@ -1,6 +1,4 @@
 {
-  "version": 2,
-  "name": "voltix-esports",
-  "cleanUrls": true,
-  "trailingSlash": false
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs"
 }

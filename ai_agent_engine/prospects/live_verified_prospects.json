@@ -1,0 +1,35 @@
+[
+  {
+    "company_name": "Reliant Plumbing",
+    "first_name": "Team",
+    "niche": "Plumbing & HVAC",
+    "city": "Austin, TX",
+    "website": "https://reliantplumbing.com/",
+    "contact": "office@reliantplumbing.com",
+    "has_ai_chatbot": false,
+    "service_focus": "24/7 emergency water heater repair & burst pipe triage",
+    "pitch_hook": "Competitors like All Masters Plumbing already use AI receptionists to capture after-hours emergency calls. We built a custom demo for Reliant Plumbing."
+  },
+  {
+    "company_name": "Radiant Plumbing & Air",
+    "first_name": "Management",
+    "niche": "Plumbing & HVAC",
+    "city": "Austin & San Antonio, TX",
+    "website": "https://radiantplumbing.com/",
+    "contact": "https://radiantplumbing.com/contact-us/",
+    "has_ai_chatbot": false,
+    "service_focus": "After-hours HVAC & plumbing emergency dispatch",
+    "pitch_hook": "Your site mentions 24/7 service, but night inquiries only have a phone number or 13-field web form. Our AI receptionist pre-qualifies and books calls in 1 second."
+  },
+  {
+    "company_name": "Dallas Plumbing Company",
+    "first_name": "Service Team",
+    "niche": "Plumbing & HVAC",
+    "city": "Dallas, TX",
+    "website": "https://dallasplumbing.com/",
+    "contact": "service@DallasPlumbing.com",
+    "has_ai_chatbot": false,
+    "service_focus": "Water heaters & emergency repiping",
+    "pitch_hook": "Your current widget only collects SMS numbers without instant triage. Our AI qualifies water heater emergencies and schedules appointments 24/7."
+  }
+]

@@ -1,0 +1,77 @@
+[
+  {
+    "prospect": {
+      "first_name": "Mike",
+      "company_name": "Denver Fast Plumbers",
+      "niche": "Plumbing & HVAC",
+      "city": "Denver",
+      "service_focus": "Emergency water heater replacement & drain clearing",
+      "contact": "mike@denverfastplumbing.example.com",
+      "channel": "email",
+      "demo_link": "https://huggingface.co/spaces/YOUR_USERNAME/ai-receptionist-demo"
+    },
+    "email_sequence": {
+      "subject": "missed calls at Denver Fast Plumbers",
+      "email_1": "Hi Mike,\n\nNoticed Denver Fast Plumbers handles Emergency water heater replacement & drain clearing in Denver \u2014 which usually means a heavy volume of incoming calls and urgent form inquiries.\n\nQuick question: how many after-hours inquiries or emergency leads slip through the cracks when your crew is busy on jobs or after 6 PM?\n\nWe built a lightweight 24/7 AI Receptionist agent specifically for Plumbing & HVAC businesses that answers inbound inquiries in 1 second, pre-qualifies urgency, and schedules jobs straight onto your calendar.\n\nI actually spun up a live interactive demo pre-trained on Denver Fast Plumbers's services so you can test it yourself:\n\ud83d\udc49 https://huggingface.co/spaces/YOUR_USERNAME/ai-receptionist-demo\n\nMost local teams using this recover 5\u20138 high-ticket jobs every month that otherwise bounce to competitors.\n\nWorth a 5-minute chat to see how it can plug into your site and phone line?\n\nBest regards,\nAlex | AI Solutions Specialist",
+      "follow_up_day_3": "Hi Mike,\n\nCircling back on this. We recently launched this system for a similar Plumbing & HVAC provider in a neighboring area.\n\nIn its first two weeks, it automatically fielded 38 after-hours inquiries and captured $5,400 in booked jobs that previously went unanswered to voicemail.\n\nYou can test drive the interactive demo here (takes 30 seconds):\n\ud83d\udc49 https://huggingface.co/spaces/YOUR_USERNAME/ai-receptionist-demo\n\nOpen to seeing how quickly we can configure this for Denver Fast Plumbers?\n\nBest,\nAlex"
+    },
+    "twitter_dm_sequence": {
+      "opening_hook": "Hey Mike \u2014 caught your recent breakdown on Emergency water heater replacement & drain clearing. Wrote something quick for your workflow that you can use right away \u2014 want me to drop it here?",
+      "delivery_and_pitch": "Awesome! Here is a sample automated AI content pipeline breakdown tailored to your topic:\n\n\ud83d\udccc 1 Long-form topic \u2794 \n  \u2022 1 punchy 5-tweet actionable framework\n  \u2022 1 LinkedIn high-signal carousel outline\n  \u2022 1 newsletter takeaway summary\n\nI run an AI pipeline that delivers 15 of these ready-to-post assets every month so you stay consistent without spending hours editing.\n\nYou can also test our live interactive workflow bot here:\n\ud83d\udc49 https://huggingface.co/spaces/YOUR_USERNAME/ai-receptionist-demo\n\nOpen to checking out 2 more custom samples?"
+    },
+    "instagram_dm_sequence": {
+      "opening_hook": "Hey Mike! Love your recent posts on Emergency water heater replacement & drain clearing. Quick question: does your front desk manage all appointment inquiries in the DMs manually, or do you have an automated booking bot set up yet?",
+      "delivery_and_pitch": "Got it! We built a custom 24/7 AI concierge for boutique clinics that instantly answers pricing/prep FAQs in the DMs and locks in calendar bookings 24/7.\n\nI actually configured a live preview for Denver Fast Plumbers here:\n\ud83d\udc49 https://huggingface.co/spaces/YOUR_USERNAME/ai-receptionist-demo\n\nTakes 30 seconds to try. Open to seeing how it looks?"
+    }
+  },
+  {
+    "prospect": {
+      "first_name": "Sarah",
+      "company_name": "Luminate Med Spa",
+      "niche": "Med-Spa & Aesthetics",
+      "city": "Austin",
+      "service_focus": "Hydrafacials, Botox, and laser skin resurfacing",
+      "contact": "@luminatemedspa",
+      "channel": "instagram_dm",
+      "demo_link": "https://huggingface.co/spaces/YOUR_USERNAME/ai-receptionist-demo"
+    },
+    "email_sequence": {
+      "subject": "missed calls at Luminate Med Spa",
+      "email_1": "Hi Sarah,\n\nNoticed Luminate Med Spa handles Hydrafacials, Botox, and laser skin resurfacing in Austin \u2014 which usually means a heavy volume of incoming calls and urgent form inquiries.\n\nQuick question: how many after-hours inquiries or emergency leads slip through the cracks when your crew is busy on jobs or after 6 PM?\n\nWe built a lightweight 24/7 AI Receptionist agent specifically for Med-Spa & Aesthetics businesses that answers inbound inquiries in 1 second, pre-qualifies urgency, and schedules jobs straight onto your calendar.\n\nI actually spun up a live interactive demo pre-trained on Luminate Med Spa's services so you can test it yourself:\n\ud83d\udc49 https://huggingface.co/spaces/YOUR_USERNAME/ai-receptionist-demo\n\nMost local teams using this recover 5\u20138 high-ticket jobs every month that otherwise bounce to competitors.\n\nWorth a 5-minute chat to see how it can plug into your site and phone line?\n\nBest regards,\nAlex | AI Solutions Specialist",
+      "follow_up_day_3": "Hi Sarah,\n\nCircling back on this. We recently launched this system for a similar Med-Spa & Aesthetics provider in a neighboring area.\n\nIn its first two weeks, it automatically fielded 38 after-hours inquiries and captured $5,400 in booked jobs that previously went unanswered to voicemail.\n\nYou can test drive the interactive demo here (takes 30 seconds):\n\ud83d\udc49 https://huggingface.co/spaces/YOUR_USERNAME/ai-receptionist-demo\n\nOpen to seeing how quickly we can configure this for Luminate Med Spa?\n\nBest,\nAlex"
+    },
+    "twitter_dm_sequence": {
+      "opening_hook": "Hey Sarah \u2014 caught your recent breakdown on Hydrafacials, Botox, and laser skin resurfacing. Wrote something quick for your workflow that you can use right away \u2014 want me to drop it here?",
+      "delivery_and_pitch": "Awesome! Here is a sample automated AI content pipeline breakdown tailored to your topic:\n\n\ud83d\udccc 1 Long-form topic \u2794 \n  \u2022 1 punchy 5-tweet actionable framework\n  \u2022 1 LinkedIn high-signal carousel outline\n  \u2022 1 newsletter takeaway summary\n\nI run an AI pipeline that delivers 15 of these ready-to-post assets every month so you stay consistent without spending hours editing.\n\nYou can also test our live interactive workflow bot here:\n\ud83d\udc49 https://huggingface.co/spaces/YOUR_USERNAME/ai-receptionist-demo\n\nOpen to checking out 2 more custom samples?"
+    },
+    "instagram_dm_sequence": {
+      "opening_hook": "Hey Sarah! Love your recent posts on Hydrafacials, Botox, and laser skin resurfacing. Quick question: does your front desk manage all appointment inquiries in the DMs manually, or do you have an automated booking bot set up yet?",
+      "delivery_and_pitch": "Got it! We built a custom 24/7 AI concierge for boutique clinics that instantly answers pricing/prep FAQs in the DMs and locks in calendar bookings 24/7.\n\nI actually configured a live preview for Luminate Med Spa here:\n\ud83d\udc49 https://huggingface.co/spaces/YOUR_USERNAME/ai-receptionist-demo\n\nTakes 30 seconds to try. Open to seeing how it looks?"
+    }
+  },
+  {
+    "prospect": {
+      "first_name": "David",
+      "company_name": "Apex Tech Growth",
+      "niche": "Creator / Solopreneur",
+      "city": "Remote",
+      "service_focus": "Weekly AI newsletter & YouTube tech breakdowns",
+      "contact": "@davidbuilds",
+      "channel": "twitter_dm",
+      "demo_link": "https://huggingface.co/spaces/YOUR_USERNAME/ai-receptionist-demo"
+    },
+    "email_sequence": {
+      "subject": "missed calls at Apex Tech Growth",
+      "email_1": "Hi David,\n\nNoticed Apex Tech Growth handles Weekly AI newsletter & YouTube tech breakdowns in Remote \u2014 which usually means a heavy volume of incoming calls and urgent form inquiries.\n\nQuick question: how many after-hours inquiries or emergency leads slip through the cracks when your crew is busy on jobs or after 6 PM?\n\nWe built a lightweight 24/7 AI Receptionist agent specifically for Creator / Solopreneur businesses that answers inbound inquiries in 1 second, pre-qualifies urgency, and schedules jobs straight onto your calendar.\n\nI actually spun up a live interactive demo pre-trained on Apex Tech Growth's services so you can test it yourself:\n\ud83d\udc49 https://huggingface.co/spaces/YOUR_USERNAME/ai-receptionist-demo\n\nMost local teams using this recover 5\u20138 high-ticket jobs every month that otherwise bounce to competitors.\n\nWorth a 5-minute chat to see how it can plug into your site and phone line?\n\nBest regards,\nAlex | AI Solutions Specialist",
+      "follow_up_day_3": "Hi David,\n\nCircling back on this. We recently launched this system for a similar Creator / Solopreneur provider in a neighboring area.\n\nIn its first two weeks, it automatically fielded 38 after-hours inquiries and captured $5,400 in booked jobs that previously went unanswered to voicemail.\n\nYou can test drive the interactive demo here (takes 30 seconds):\n\ud83d\udc49 https://huggingface.co/spaces/YOUR_USERNAME/ai-receptionist-demo\n\nOpen to seeing how quickly we can configure this for Apex Tech Growth?\n\nBest,\nAlex"
+    },
+    "twitter_dm_sequence": {
+      "opening_hook": "Hey David \u2014 caught your recent breakdown on Weekly AI newsletter & YouTube tech breakdowns. Wrote something quick for your workflow that you can use right away \u2014 want me to drop it here?",
+      "delivery_and_pitch": "Awesome! Here is a sample automated AI content pipeline breakdown tailored to your topic:\n\n\ud83d\udccc 1 Long-form topic \u2794 \n  \u2022 1 punchy 5-tweet actionable framework\n  \u2022 1 LinkedIn high-signal carousel outline\n  \u2022 1 newsletter takeaway summary\n\nI run an AI pipeline that delivers 15 of these ready-to-post assets every month so you stay consistent without spending hours editing.\n\nYou can also test our live interactive workflow bot here:\n\ud83d\udc49 https://huggingface.co/spaces/YOUR_USERNAME/ai-receptionist-demo\n\nOpen to checking out 2 more custom samples?"
+    },
+    "instagram_dm_sequence": {
+      "opening_hook": "Hey David! Love your recent posts on Weekly AI newsletter & YouTube tech breakdowns. Quick question: does your front desk manage all appointment inquiries in the DMs manually, or do you have an automated booking bot set up yet?",
+      "delivery_and_pitch": "Got it! We built a custom 24/7 AI concierge for boutique clinics that instantly answers pricing/prep FAQs in the DMs and locks in calendar bookings 24/7.\n\nI actually configured a live preview for Apex Tech Growth here:\n\ud83d\udc49 https://huggingface.co/spaces/YOUR_USERNAME/ai-receptionist-demo\n\nTakes 30 seconds to try. Open to seeing how it looks?"
+    }
+  }
+]

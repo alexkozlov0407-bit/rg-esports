@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+/* ── Arrogant Esports / BioPortl Design Tokens ─────────────── */
+:root {
+  --argt-black: #060709;
+  --argt-card: #0c0e14ea;
+  --argt-card-hover: #141722;
+  --argt-border: #1e2230;
+  --argt-border-glow: #ff1a5333;
+  --argt-red: #ff1a53;
+  --argt-red-bright: #ff3366;
+  --argt-red-glow: rgba(255, 26, 83, 0.45);
+  --argt-cyan: #00f0ff;
+  --argt-cyan-glow: rgba(0, 240, 255, 0.35);
+  --argt-gold: #ffb800;
+  --argt-text: #f3f4f6;
+  --argt-muted: #9ca3af;
+  --argt-discord: #5865F2;
+  --argt-tiktok: #FE2C55;
+  --argt-youtube: #FF0000;
+
+  /* backwards compatibility tokens */
+  --bp-base: var(--argt-black);
+  --bp-card: var(--argt-card);
+  --bp-border: var(--argt-border);
+  --bp-text: var(--argt-text);
+  --bp-muted: var(--argt-muted);
+  --bp-accent: var(--argt-red);
+  --bp-accent-hover: var(--argt-red-bright);
+
+  --background: var(--argt-black);
+  --foreground: var(--argt-text);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-argt-black: #060709;
+  --color-argt-card: #0c0e14ea;
+  --color-argt-border: #1e2230;
+  --color-argt-red: #ff1a53;
+  --color-argt-red-bright: #ff3366;
+  --color-argt-cyan: #00f0ff;
+  --color-argt-gold: #ffb800;
+  --color-argt-text: #f3f4f6;
+  --color-argt-muted: #9ca3af;
+  --color-argt-discord: #5865F2;
+  --color-argt-tiktok: #FE2C55;
+  --color-argt-youtube: #FF0000;
+
+  --color-bp-base: #060709;
+  --color-bp-card: #0c0e14ea;
+  --color-bp-border: #1e2230;
+  --color-bp-text: #f3f4f6;
+  --color-bp-muted: #9ca3af;
+  --color-bp-accent: #ff1a53;
+  --color-bp-accent-hover: #ff3366;
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background-color: var(--argt-black);
+  color: var(--argt-text);
+  font-family: var(--font-sans, Arial, Helvetica, sans-serif);
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(ellipse at 50% 0%, rgba(255, 26, 83, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 50%, rgba(0, 240, 255, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(88, 101, 242, 0.05) 0%, transparent 50%),
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+  background-position: 0 0, 0 0, 0 0, -1px -1px, -1px -1px;
+}
+
+/* ── Esports Glass Card ──────────────────────────────────── */
+.esports-card {
+  background: var(--argt-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--argt-border);
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.esports-card:hover {
+  border-color: rgba(255, 26, 83, 0.4);
+  box-shadow: 0 10px 30px -10px rgba(255, 26, 83, 0.2), inset 0 0 15px rgba(255, 26, 83, 0.05);
+}
+
+/* ── Glowing Accent Borders ──────────────────────────────── */
+.glow-red {
+  box-shadow: 0 0 25px -5px rgba(255, 26, 83, 0.4);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.4);
+}
+
+.glow-discord {
+  box-shadow: 0 0 25px -5px rgba(88, 101, 242, 0.4);
+}
+
+.glow-gold {
+  box-shadow: 0 0 25px -5px rgba(255, 184, 0, 0.4);
+}
+
+/* ── Esports Angled Cut Utility ──────────────────────────── */
+.clip-corner {
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+
+.clip-corner-double {
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+
+/* ── Scanlines Overlay ───────────────────────────────────── */
+.scanlines {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.2)
+  );
+  background-size: 100% 4px;
+}
+
+/* ── Custom Scrollbar ────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #060709;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e2230;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff1a53;
+}

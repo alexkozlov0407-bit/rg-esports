@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>24/7 AI Inbound Receptionist & Booking Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --bot-msg: #1e293b;
+      --user-msg: #2563eb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    header {
+      text-align: center;
+      padding: 12px 0 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(37, 99, 235, 0.2);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .badge::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .niche-tabs {
+      display: flex;
+      gap: 8px;
+      background: #1e293b;
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .chat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      height: 480px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+
+    .chat-header {
+      padding: 14px 20px;
+      background: rgba(15, 23, 42, 0.6);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .agent-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .chat-history {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .message {
+      max-width: 80%;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-size: 0.92rem;
+      line-height: 1.45;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message.bot {
+      align-self: flex-start;
+      background: #334155;
+      color: #f1f5f9;
+      border-bottom-left-radius: 2px;
+    }
+
+    .message.user {
+      align-self: flex-end;
+      background: var(--user-msg);
+      color: #fff;
+      border-bottom-right-radius: 2px;
+    }
+
+    .chat-input-area {
+      padding: 14px 18px;
+      border-top: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.4);
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--primary);
+    }
+
+    button.send-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 0 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button.send-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .quick-prompts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0 4px;
+    }
+
+    .chip {
+      background: rgba(51, 65, 85, 0.6);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 9999px;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .chip:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      padding: 16px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="badge">Live AI Autonomous Demo</div>
+      <h1>24/7 AI Receptionist & Booking Agent</h1>
+      <p class="subtitle">Field customer emergencies, answer FAQs, and secure calendar bookings around the clock.</p>
+    </header>
+
+    <div class="niche-tabs">
+      <button class="tab-btn active" onclick="switchNiche('plumbing')">🔧 Emergency Plumbing & HVAC</button>
+      <button class="tab-btn" onclick="switchNiche('medspa')">✨ Dental & Med-Spa Clinic</button>
+      <button class="tab-btn" onclick="switchNiche('creator')">🚀 Creator & Agency Content</button>
+    </div>
+
+    <div class="chat-card">
+      <div class="chat-header">
+        <div class="agent-status">
+          <div class="avatar" id="agent-avatar">AP</div>
+          <div>
+            <div style="font-weight: 600; font-size: 0.95rem;" id="agent-name">Alex | Apex 24/7 Dispatch</div>
+            <div style="font-size: 0.75rem; color: #10b981;">● Online & Instant Response (Under 1s)</div>
+          </div>
+        </div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Demo Sandbox</div>
+      </div>
+
+      <div class="chat-history" id="chat-history">
+        <!-- Messages will populate here -->
+      </div>
+
+      <div class="quick-prompts" id="quick-prompts">
+        <!-- Quick prompt chips -->
+      </div>
+
+      <div class="chat-input-area">
+        <input type="text" id="user-input" placeholder="Type a message (or click a quick prompt)..." onkeypress="handleKey(event)">
+        <button class="send-btn" onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+
+    <footer>
+      Powered by Autonomous AI Agent Architecture • Ready to deploy on any custom website or phone line.
+    </footer>
+  </div>
+
+  <script>
+    const CONFIGS = {
+      plumbing: {
+        name: "Alex | Apex 24/7 Dispatch",
+        avatar: "AP",
+        welcome: "Hello! You have reached Apex 24/7 Plumbing & HVAC dispatch. Are you experiencing an emergency right now (e.g., active leak, burst pipe), or looking to schedule a routine appointment?",
+        chips: [
+          "Emergency! My water heater is flooding my garage",
+          "How much do you charge for diagnostic dispatch?",
+          "Can I book a technician for tomorrow at 2 PM?"
+        ],
+        respond: (msg) => {
+          const m = msg.toLowerCase();
+          if (m.includes("leak") || m.includes("flood") || m.includes("burst") || m.includes("emergency") || m.includes("urgent")) {
+            return "I understand this is urgent! We have 2 technicians on standby in your area right now. What is your street address and best callback number so our dispatch can confirm arrival within 45 minutes?";
+          } else if (m.includes("price") || m.includes("cost") || m.includes("diagnostic") || m.includes("how much")) {
+            return "Our diagnostic dispatch fee is $79, but it is 100% waived if you approve the repair with our tech. Would you like us to send someone over to assess it?";
+          } else if (m.includes("tomorrow") || m.includes("today") || m.includes("book") || m.includes("pm") || m.includes("am")) {
+            return "Tomorrow at 2:00 PM is currently open on our schedule. What is the full service address and direct contact phone number for the booking?";
+          } else if (/\d{3}/.test(m) || m.includes("@")) {
+            return "Perfect, I've logged that in our dispatch portal. A confirmation SMS with your technician's GPS tracker has been triggered. Hang tight!";
+          } else {
+            return "Got it! Our licensed team can take care of that for you today. What is your zip code and phone number so we can check immediate technician availability?";
+          }
+        }
+      },
+      medspa: {
+        name: "Sophia | Radiance Med-Spa Concierge",
+        avatar: "RM",
+        welcome: "Welcome to Radiance Dental & Med-Spa! Are you looking to schedule an appointment or inquire about our current new-guest specials on Botox, Hydrafacials, or Invisalign?",
+        chips: [
+          "What are your current Botox and filler specials?",
+          "Can I schedule a consultation this Friday afternoon?",
+          "Do you accept new patients for dental whitening?"
+        ],
+        respond: (msg) => {
+          const m = msg.toLowerCase();
+          if (m.includes("botox") || m.includes("filler") || m.includes("special") || m.includes("price")) {
+            return "We currently have our Spring Glow special: $11/unit for Botox and $75 off your first Hydrafacial for first-time guests! Would you like to reserve a 15-minute consultation?";
+          } else if (m.includes("friday") || m.includes("consultation") || m.includes("schedule") || m.includes("book")) {
+            return "Friday at 2:30 PM and 4:00 PM are both available with our lead aesthetician. Which of those times works best for you?";
+          } else if (/\d{3}/.test(m) || m.includes("@") || m.includes("name")) {
+            return "Thank you so much! Your appointment hold is locked in. We've sent a prep checklist directly to your contact info. We look forward to seeing you!";
+          } else {
+            return "We would love to help you with that! Are you looking for a morning or afternoon appointment this week?";
+          }
+        }
+      },
+      creator: {
+        name: "Nova | AI Content Engine",
+        avatar: "NE",
+        welcome: "Hey there! I help creators and founders convert 1 weekly long-form video or podcast into 15 high-converting shorts, threads, and newsletters on autopilot. What's taking up most of your time right now?",
+        chips: [
+          "I have plenty of podcast audio but no time to cut viral shorts",
+          "Can you help me repurpose my YouTube videos into Twitter threads?",
+          "How much does your monthly content automation cost?"
+        ],
+        respond: (msg) => {
+          const m = msg.toLowerCase();
+          if (m.includes("short") || m.includes("video") || m.includes("clip") || m.includes("podcast")) {
+            return "That's our bread and butter! We plug your long-form link into our AI engine, transcribe, detect high-retention hooks, add kinetic captions, and deliver 8 ready-to-post vertical clips every week. Want to see a free sample run on your latest video?";
+          } else if (m.includes("cost") || m.includes("price") || m.includes("monthly")) {
+            return "Our full-service automated repurposing starts at $299/mo (includes 12 vertical clips + 4 newsletter issues). Most creators save ~15 hours a week. Drop your channel link and I'll generate a free sample right now!";
+          } else {
+            return "Love that. If you share a link to your latest video or post, our AI engine will generate 3 free viral hooks tailored to your tone right here!";
+          }
+        }
+      }
+    };
+
+    let currentNiche = 'plumbing';
+
+    function switchNiche(nicheKey) {
+      currentNiche = nicheKey;
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const conf = CONFIGS[nicheKey];
+      document.getElementById('agent-name').innerText = conf.name;
+      document.getElementById('agent-avatar').innerText = conf.avatar;
+
+      // reset history
+      const hist = document.getElementById('chat-history');
+      hist.innerHTML = '';
+      addMessage(conf.welcome, 'bot');
+
+      // reset chips
+      const chipsContainer = document.getElementById('quick-prompts');
+      chipsContainer.innerHTML = '';
+      conf.chips.forEach(text => {
+        const chip = document.createElement('div');
+        chip.className = 'chip';
+        chip.innerText = text;
+        chip.onclick = () => {
+          document.getElementById('user-input').value = text;
+          sendMessage();
+        };
+        chipsContainer.appendChild(chip);
+      });
+    }
+
+    function addMessage(text, sender) {
+      const hist = document.getElementById('chat-history');
+      const div = document.createElement('div');
+      div.className = `message ${sender}`;
+      div.innerText = text;
+      hist.appendChild(div);
+      hist.scrollTop = hist.scrollHeight;
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('user-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      addMessage(text, 'user');
+      input.value = '';
+
+      // simulate instantaneous AI reply
+      setTimeout(() => {
+        const reply = CONFIGS[currentNiche].respond(text);
+        addMessage(reply, 'bot');
+      }, 400);
+    }
+
+    function handleKey(e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    }
+
+    // Init
+    window.onload = () => {
+      switchNiche('plumbing');
+    };
+  </script>
+</body>
+</html>
