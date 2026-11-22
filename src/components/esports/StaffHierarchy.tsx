@@ -172,7 +172,7 @@ const DISPUTE_SCENARIOS: DisputeScenario[] = [
     question: "I am a substitute player on a competitive team and I want more play time in upcoming scrims or leagues. Should I open a ticket?",
     ruleExcerpt: "Teams are CAPTAINED NOT MANAGED. A player who didn't like being a sub would NOT make a ticket; they talk to their Team Captain.",
     correctPath: "Do NOT make a Discord ticket. Direct message or hop in a VC call with your specific Team Captain. Captains control rosters and lineups.",
-    whoToContact: "Your Team Captain (e.g., Jody, Comphlexity, tjdagoat, stinkyman221, Donat)",
+    whoToContact: "Your Team Captain (directly in voice chat or DM)",
     isTicket: false,
     color: "border-amber-400 text-amber-400",
   },

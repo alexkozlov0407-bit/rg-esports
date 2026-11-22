@@ -29,8 +29,11 @@ export function AcademyHub({ onOpenTryoutWithTeam }: AcademyHubProps) {
       name: "Diamond Academy",
       rankBadge: "text-blue-400 border-blue-400/30 bg-blue-400/10",
       description: "Fast-track pipeline into RG Province (D1-D2) & RG Ascension (D3-C1). Intensive aerial speed, recoveries, and rotational training.",
-      players: [
-        { name: "[EU] Titanfall", tag: "Diamond Competitor", note: "European Division" },
+      focusModules: [
+        "Air Dribble Progression & Ceiling Clears",
+        "Speed of Play & Momentum Conservation",
+        "Shadow Defense & Backboard Reads",
+        "Competitive Scrim Simulation & Comms",
       ],
       coaches: ["[NA] Vey †", "[NA] Tay"],
     },
@@ -38,14 +41,11 @@ export function AcademyHub({ onOpenTryoutWithTeam }: AcademyHubProps) {
       name: "Platinum Academy",
       rankBadge: "text-cyan-400 border-cyan-400/30 bg-cyan-400/10",
       description: "Mechanical refinement: bounce dribbles, half-flips, backboard reads, and 3v3 team pacing.",
-      players: [
-        { name: "𝗖𝗵𝗼𝗱𝗻𝗶𝗸𝟬𝟬", tag: "Plat Academy", note: "Active Squad" },
-        { name: "[EU] Dannon", tag: "Plat Academy", note: "European Division" },
-        { name: "[EU] Recruiter | Toast", tag: "Staff & Player", note: "Recruitment Team" },
-        { name: "[NA] Jose", tag: "Plat Academy", note: "North America" },
-        { name: "Nixus_eclipse", tag: "Plat Freestyler", note: "Freestyle Mechanics" },
-        { name: "Mason", tag: "Plat Academy", note: "North America" },
-        { name: "[NA] Pedro", tag: "Plat Academy", note: "North America" },
+      focusModules: [
+        "Fast Aerial Launch & Double Jump Mechanics",
+        "Rotational Discipline & 3v3 Spacing",
+        "Half-Flips, Wave-Dashes & Recovery Speed",
+        "Boost Management & Small Pad Pathing",
       ],
       coaches: ["[NA] Tay", "[NA] Team Manager | Jody"],
     },
@@ -138,15 +138,15 @@ export function AcademyHub({ onOpenTryoutWithTeam }: AcademyHubProps) {
           </div>
         </div>
 
-        {/* Public Academy Rosters */}
+        {/* Academy Tiers & Syllabus */}
         <div className="mt-10 rounded-2xl border border-cyan-500/30 bg-[#0a0d14] p-6 sm:p-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#1a2233]">
             <div>
               <div className="text-xs font-mono font-bold text-gray-400 uppercase tracking-widest">
-                OFFICIAL PUBLIC ROSTER
+                CURRICULUM & DEVELOPMENT
               </div>
               <h3 className="text-2xl font-black font-mono text-white mt-1">
-                ACADEMY SQUADS & TALENT
+                ACADEMY TIERS & SYLLABUS
               </h3>
             </div>
 
@@ -154,8 +154,8 @@ export function AcademyHub({ onOpenTryoutWithTeam }: AcademyHubProps) {
             <div className="flex gap-1.5 bg-[#0e121a] p-1.5 rounded-xl border border-[#1a2233]">
               {(
                 [
-                  { key: "plat", label: "Plat Academy (7)", count: 7 },
-                  { key: "diamond", label: "Diamond Academy (1)", count: 1 },
+                  { key: "plat", label: "Platinum Academy" },
+                  { key: "diamond", label: "Diamond Academy" },
                 ] as const
               ).map((tab) => (
                 <button
@@ -186,7 +186,7 @@ export function AcademyHub({ onOpenTryoutWithTeam }: AcademyHubProps) {
                   {currentTier.name}
                 </span>
                 <span className="text-xs font-mono text-gray-400">
-                  {currentTier.players.length} Registered Players
+                  Curriculum Track
                 </span>
               </div>
               <p className="mt-1.5 text-xs text-gray-300 max-w-2xl">
@@ -200,30 +200,19 @@ export function AcademyHub({ onOpenTryoutWithTeam }: AcademyHubProps) {
             </div>
           </div>
 
-          {/* Player Cards Grid */}
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {currentTier.players.map((player) => (
+          {/* Focus Modules Grid */}
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {currentTier.focusModules.map((module, i) => (
               <div
-                key={player.name}
-                className="flex items-center justify-between p-3.5 rounded-xl border border-[#1a2233] bg-[#07090f] hover:border-cyan-500/50 transition-all"
+                key={i}
+                className="flex items-center gap-3 p-3.5 rounded-xl border border-[#1a2233] bg-[#07090f] hover:border-cyan-500/50 transition-all"
               >
-                <div className="flex items-center gap-3">
-                  <div className="h-9 w-9 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center font-mono font-black text-cyan-400 text-sm">
-                    RL
-                  </div>
-                  <div>
-                    <div className="text-sm font-mono font-bold text-white">
-                      {player.name}
-                    </div>
-                    <div className="text-[11px] font-mono text-gray-400">
-                      {player.note}
-                    </div>
-                  </div>
+                <div className="h-8 w-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center font-mono font-bold text-cyan-400 text-xs shrink-0">
+                  0{i + 1}
                 </div>
-
-                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-[#131824] text-cyan-300 border border-[#1a2233]">
-                  {player.tag}
-                </span>
+                <div className="text-xs font-mono font-bold text-white">
+                  {module}
+                </div>
               </div>
             ))}
           </div>

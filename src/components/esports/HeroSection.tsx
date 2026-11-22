@@ -203,7 +203,7 @@ export function HeroSection({ stats, onOpenVideo, onOpenTryout }: HeroSectionPro
               </div>
               <div className="text-xs font-black font-mono text-white">RG PROVINCE</div>
               <div className="text-[10px] font-mono text-[#ff2d78] font-bold">D1 - D2 (NA)</div>
-              <div className="text-[9px] font-mono text-gray-400">Captain: (NAE) tjdagoat.</div>
+              <div className="text-[9px] font-mono text-gray-400">Captained 3v3 Lineup</div>
             </div>
 
             {/* RG Nightshift */}
@@ -218,7 +218,7 @@ export function HeroSection({ stats, onOpenVideo, onOpenTryout }: HeroSectionPro
               </div>
               <div className="text-xs font-black font-mono text-white">RG NIGHTSHIFT</div>
               <div className="text-[10px] font-mono text-amber-400 font-bold">D3 - C1 (NA)</div>
-              <div className="text-[9px] font-mono text-gray-400">Captain: Jody</div>
+              <div className="text-[9px] font-mono text-gray-400">Captained 3v3 Lineup</div>
             </div>
 
             {/* RG Ascension */}
@@ -233,7 +233,7 @@ export function HeroSection({ stats, onOpenVideo, onOpenTryout }: HeroSectionPro
               </div>
               <div className="text-xs font-black font-mono text-white">RG ASCENSION</div>
               <div className="text-[10px] font-mono text-[#ef4444] font-bold">D3 - C1 (NA)</div>
-              <div className="text-[9px] font-mono text-gray-400">Captain: Comphlexity</div>
+              <div className="text-[9px] font-mono text-gray-400">Captained 3v3 Lineup</div>
             </div>
 
             {/* RG Main / Academy */}

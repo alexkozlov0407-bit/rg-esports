@@ -33,10 +33,6 @@ export interface TeamData {
   badgeGlow: string;
   accentColor: string;
   status: "Active Roster" | "Scouting Starters" | "In Development";
-  captain: string;
-  player2: string;
-  player3: string;
-  subs: string[];
   description: string;
 }
 
@@ -51,11 +47,7 @@ const TEAMS: TeamData[] = [
     badgeGlow: "rgba(245, 158, 11, 0.5)",
     accentColor: "border-amber-400 text-amber-300",
     status: "Scouting Starters",
-    captain: "Scouting SSL Captain",
-    player2: "Scouting Starter",
-    player3: "Scouting Starter",
-    subs: ["Open Sub Slots"],
-    description: "The flagship elite lineup of Republic of Golds. Competing in RLCS Open Qualifiers and high-tier competitive leagues.",
+    description: "The flagship elite lineup of Republic of Golds. Competing in RLCS Open Qualifiers, national invitationals, and top-tier prize-pool leagues.",
   },
   {
     id: "rg-sovereign",
@@ -67,11 +59,7 @@ const TEAMS: TeamData[] = [
     badgeGlow: "rgba(245, 158, 11, 0.4)",
     accentColor: "border-amber-500/60 text-amber-400",
     status: "In Development",
-    captain: "Captained Lineup (Forming)",
-    player2: "Scouting Starter",
-    player3: "Scouting Starter",
-    subs: ["Open Sub Slots"],
-    description: "High Grand Champion 3 to SSL squad preparing for tournament bracket play and regional opens.",
+    description: "High Grand Champion 3 to Supersonic Legend squad preparing for tournament bracket play, high-MMR scrims, and regional opens.",
   },
   {
     id: "rg-vanguard",
@@ -83,11 +71,7 @@ const TEAMS: TeamData[] = [
     badgeGlow: "rgba(168, 85, 247, 0.4)",
     accentColor: "border-purple-500/60 text-purple-400",
     status: "Active Roster",
-    captain: "Scouting Captain",
-    player2: "[NA] Smurfyopeak",
-    player3: "[NA] Bez",
-    subs: ["Open Sub Slots"],
-    description: "Grand Champion NA squad featuring starters Smurfyopeak & Bez. High mechanical speed and organized scrim focus.",
+    description: "Premier Grand Champion NA lineup focused on high mechanical speed, aggressive offensive rotations, and organized competitive scrims.",
   },
   {
     id: "rg-dynasty",
@@ -99,11 +83,7 @@ const TEAMS: TeamData[] = [
     badgeGlow: "rgba(99, 102, 241, 0.4)",
     accentColor: "border-indigo-400 text-indigo-300",
     status: "Active Roster",
-    captain: "stinkyman221",
-    player2: "[NA] 2023rto",
-    player3: "Kxursh.",
-    subs: ["Sub Slot Open"],
-    description: "Full active 3v3 Champion roster captained by stinkyman221 with 2023rto and Kxursh. Regular league contenders.",
+    description: "Competitive Champion 2 to Champion 3 NA squad. Active regular contenders in organized community leagues, scrim ladders, and weekly tournaments.",
   },
   {
     id: "rg-ascension",
@@ -115,11 +95,7 @@ const TEAMS: TeamData[] = [
     badgeGlow: "rgba(239, 68, 68, 0.5)",
     accentColor: "border-[#ef4444] text-[#ef4444]",
     status: "Active Roster",
-    captain: "Comphlexity",
-    player2: "Kelssius",
-    player3: "foulxyz",
-    subs: ["Carter_Rl", "[NA] X!N0"],
-    description: "Heavyweight competitive squad with full 5-player roster and custom crest. Captained by Comphlexity with deep sub bench.",
+    description: "Heavyweight Diamond 3 to Champion 1 squad bridging mid-rank mechanics with disciplined high-level team rotations and competitive tournament play.",
   },
   {
     id: "rg-nightshift",
@@ -131,11 +107,7 @@ const TEAMS: TeamData[] = [
     badgeGlow: "rgba(245, 158, 11, 0.5)",
     accentColor: "border-amber-400 text-amber-400",
     status: "Active Roster",
-    captain: "[NA] Team Manager | Jody",
-    player2: "Apierson",
-    player3: "[NAE] F0C4L",
-    subs: ["[NAC] Glitxh.", "ll Xzcvo ll"],
-    description: "Cosmic gold squad led by Team Manager Jody. Complete 5-man roster with Apierson, F0C4L, Glitxh., and Xzcvo.",
+    description: "Dedicated Diamond 3 to Champion 1 competitive lineup focused on disciplined team communication, defensive structures, and league progression.",
   },
   {
     id: "rg-province",
@@ -147,11 +119,7 @@ const TEAMS: TeamData[] = [
     badgeGlow: "rgba(255, 45, 120, 0.5)",
     accentColor: "border-[#ff2d78] text-[#ff2d78]",
     status: "Scouting Starters",
-    captain: "(NAE) tjdagoat.",
-    player2: "Scouting Starter",
-    player3: "Scouting Starter",
-    subs: ["Open Sub Slots"],
-    description: "Neon pink crown badge squad. Captained by (NAE) tjdagoat., looking for 2 starters to complete the D1-D2 squad.",
+    description: "Competitive Diamond 1 to Diamond 2 squad serving as a core launchpad for advancing players transitioning into upper-tier championship brackets.",
   },
   {
     id: "rg-mainstream",
@@ -163,11 +131,7 @@ const TEAMS: TeamData[] = [
     badgeGlow: "rgba(6, 182, 212, 0.4)",
     accentColor: "border-cyan-400 text-cyan-300",
     status: "Scouting Starters",
-    captain: "Scouting EU Captain",
-    player2: "Recruiting",
-    player3: "Recruiting",
-    subs: ["Open Sub Slots"],
-    description: "European Grand Champion division squad. Targeting European community leagues and scrim ladders.",
+    description: "European Grand Champion division squad. Competing in European community leagues, organized scrim ladders, and regional qualifiers.",
   },
   {
     id: "rg-twilight",
@@ -179,11 +143,7 @@ const TEAMS: TeamData[] = [
     badgeGlow: "rgba(168, 85, 247, 0.4)",
     accentColor: "border-purple-400 text-purple-300",
     status: "Active Roster",
-    captain: "[EU] Admin | | Donat",
-    player2: "KlinKer07",
-    player3: "Recruiting Starter",
-    subs: ["EU | TheArtistRnG"],
-    description: "Captained by EU Admin Donat, featuring starter KlinKer07 and substitute TheArtistRnG. Regular European scrim squad.",
+    description: "Flagship European Champion division squad competing across European community leagues, weekly scrim ladders, and bracket challenges.",
   },
   {
     id: "rg-rush",
@@ -195,11 +155,7 @@ const TEAMS: TeamData[] = [
     badgeGlow: "rgba(14, 165, 233, 0.4)",
     accentColor: "border-sky-400 text-sky-300",
     status: "Scouting Starters",
-    captain: "Scouting EU Captain",
-    player2: "Recruiting",
-    player3: "Recruiting",
-    subs: ["Open Sub Slots"],
-    description: "European Diamond 3 to Champion 1 squad bridging the Academy pipeline to the EU competitive division.",
+    description: "European Diamond 3 to Champion 1 squad bridging the Academy development pipeline to the European competitive division.",
   },
 ];
 
@@ -385,36 +341,22 @@ export function TeamRoster({ onOpenTryoutWithTeam }: TeamRosterProps) {
                   {team.description}
                 </p>
 
-                {/* Lineup Breakdown */}
-                <div className="space-y-1.5 rounded-xl border border-[#1a2233] bg-[#07090f] p-3 text-xs font-mono">
-                  <div className="flex items-center justify-between text-gray-300">
-                    <span className="text-amber-400 font-bold flex items-center gap-1">
-                      <Crown className="h-3 w-3 text-amber-400" />
-                      CAPTAIN:
-                    </span>
-                    <span className="font-semibold text-white truncate max-w-[170px]">
-                      {team.captain}
-                    </span>
+                {/* Squad Governance & Live Lineup Reference */}
+                <div className="flex items-center justify-between rounded-xl border border-[#1a2233] bg-[#07090f] px-3.5 py-2.5 text-xs font-mono">
+                  <div className="flex items-center gap-2 text-gray-400">
+                    <Gamepad2 className="h-3.5 w-3.5 text-amber-400" />
+                    <span>FORMAT:</span>
+                    <span className="text-white font-semibold">3v3 Competitive</span>
                   </div>
-
-                  <div className="flex items-center justify-between text-gray-300">
-                    <span className="text-gray-400">PLAYER 2:</span>
-                    <span className="text-gray-200 truncate max-w-[170px]">{team.player2}</span>
-                  </div>
-
-                  <div className="flex items-center justify-between text-gray-300">
-                    <span className="text-gray-400">PLAYER 3:</span>
-                    <span className="text-gray-200 truncate max-w-[170px]">{team.player3}</span>
-                  </div>
-
-                  {team.subs.length > 0 && (
-                    <div className="flex items-center justify-between text-gray-400 pt-1 border-t border-[#1a2233]/60 text-[11px]">
-                      <span>SUBS:</span>
-                      <span className="text-gray-300 truncate max-w-[170px]">
-                        {team.subs.join(" / ")}
-                      </span>
-                    </div>
-                  )}
+                  <a
+                    href="https://discord.gg/hKGrmywnks"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[11px] text-amber-400 hover:text-amber-300 transition-colors inline-flex items-center gap-1"
+                  >
+                    <span>Discord #current-players</span>
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
                 </div>
               </div>
 
