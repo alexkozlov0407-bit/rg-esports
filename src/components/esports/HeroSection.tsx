@@ -195,7 +195,7 @@ export function HeroSection({ stats, onOpenVideo, onOpenTryout }: HeroSectionPro
             <div className="group rounded-xl border border-[#ff2d78]/30 bg-[#0e111a] p-3 text-center transition-all hover:border-[#ff2d78] hover:shadow-lg hover:shadow-[#ff2d78]/20">
               <div className="relative mx-auto h-20 w-20 rounded-xl overflow-hidden border border-[#ff2d78]/40 mb-2 group-hover:scale-105 transition-transform">
                 <Image
-                  src="/images/teams/rg-province.jpg"
+                  src="/images/branding/rg-logo.jpg"
                   alt="RG Province Badge"
                   fill
                   className="object-cover"
@@ -210,7 +210,7 @@ export function HeroSection({ stats, onOpenVideo, onOpenTryout }: HeroSectionPro
             <div className="group rounded-xl border border-amber-500/30 bg-[#0e111a] p-3 text-center transition-all hover:border-amber-400 hover:shadow-lg hover:shadow-amber-500/20">
               <div className="relative mx-auto h-20 w-20 rounded-xl overflow-hidden border border-amber-500/40 mb-2 group-hover:scale-105 transition-transform">
                 <Image
-                  src="/images/teams/rg-nightshift.jpg"
+                  src="/images/branding/rg-logo.jpg"
                   alt="RG Nightshift Badge"
                   fill
                   className="object-cover"
@@ -225,7 +225,7 @@ export function HeroSection({ stats, onOpenVideo, onOpenTryout }: HeroSectionPro
             <div className="group rounded-xl border border-[#ef4444]/30 bg-[#0e111a] p-3 text-center transition-all hover:border-[#ef4444] hover:shadow-lg hover:shadow-[#ef4444]/20">
               <div className="relative mx-auto h-20 w-20 rounded-xl overflow-hidden border border-[#ef4444]/40 mb-2 group-hover:scale-105 transition-transform">
                 <Image
-                  src="/images/teams/rg-ascension.jpg"
+                  src="/images/branding/rg-logo.jpg"
                   alt="RG Ascension Badge"
                   fill
                   className="object-cover"

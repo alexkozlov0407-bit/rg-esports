@@ -22,7 +22,7 @@ export function HypeMeter() {
     {
       id: "province",
       name: "RG Province",
-      badge: "/images/teams/rg-province.jpg",
+      badge: "/images/branding/rg-logo.jpg",
       region: "NA D1-D2",
       cheerCount: 142,
       color: "text-[#ff2d78]",
@@ -32,7 +32,7 @@ export function HypeMeter() {
     {
       id: "nightshift",
       name: "RG Nightshift",
-      badge: "/images/teams/rg-nightshift.jpg",
+      badge: "/images/branding/rg-logo.jpg",
       region: "NA D3-C1",
       cheerCount: 198,
       color: "text-amber-400",
@@ -42,7 +42,7 @@ export function HypeMeter() {
     {
       id: "ascension",
       name: "RG Ascension",
-      badge: "/images/teams/rg-ascension.jpg",
+      badge: "/images/branding/rg-logo.jpg",
       region: "NA D3-C1",
       cheerCount: 176,
       color: "text-[#ef4444]",

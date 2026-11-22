@@ -54,7 +54,7 @@ const MMR_TIERS: TierInfo[] = [
     region: "NA",
     captainOrLeader: "(NAE) tjdagoat. (Captain)",
     coach: "Jonh Magazoni & Academy Mentors",
-    badgeImage: "/images/teams/rg-province.jpg",
+    badgeImage: "/images/branding/rg-logo.jpg",
     description: "Official competitive roster entry. Captained by tjdagoat, competing in organized leagues and weekly scrims.",
   },
   {
@@ -66,7 +66,7 @@ const MMR_TIERS: TierInfo[] = [
     region: "NA",
     captainOrLeader: "Comphlexity (Ascension) & Jody (Nightshift)",
     coach: "Jonh Magazoni",
-    badgeImage: "/images/teams/rg-ascension.jpg",
+    badgeImage: "/images/branding/rg-logo.jpg",
     description: "High-voltage competitive squads. RG Ascension and RG Nightshift field active 3v3 starters and substitute talent.",
   },
   {
