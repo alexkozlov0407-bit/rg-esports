@@ -286,13 +286,13 @@ export function HeroSection({ stats, onOpenVideo, onOpenTryout }: HeroSectionPro
 
           <div className="esports-card rounded-xl p-4 text-center">
             <div className="text-2xl sm:text-3xl font-black text-white font-mono">
-              3
+              2
             </div>
             <div className="mt-1 text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">
               ACADEMY TIERS
             </div>
             <div className="mt-0.5 text-[11px] font-mono text-gray-400">
-              Diamond, Plat, Gold
+              Diamond &amp; Platinum
             </div>
           </div>
 

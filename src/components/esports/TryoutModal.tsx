@@ -128,8 +128,7 @@ Submission: Verified via RG Esports Official Portal`;
               onChange={(e) => setRank(e.target.value)}
               className="w-full rounded-xl border border-[#1a2233] bg-[#07090e] px-3.5 py-2 text-xs font-mono text-white focus:border-amber-400 focus:outline-none"
             >
-              <option value="Gold & Under (Academy)">Gold & Under (Academy)</option>
-              <option value="Platinum (Academy)">Platinum (Academy)</option>
+              <option value="Platinum (Academy)">Platinum (Academy Entry)</option>
               <option value="Diamond 1 - Diamond 2">Diamond 1 - Diamond 2</option>
               <option value="Diamond 3 - Champion 1">Diamond 3 - Champion 1</option>
               <option value="Champion 2 - Champion 3">Champion 2 - Champion 3</option>
@@ -186,7 +185,7 @@ Submission: Verified via RG Esports Official Portal`;
               <option value="RG Mainstream (GC1-GC2) - EU">RG Mainstream (GC1-GC2) - EU</option>
               <option value="RG Twilight (C1-C3) - EU">RG Twilight (C1-C3) - EU</option>
               <option value="RG Rush (D3-C1) - EU">RG Rush (D3-C1) - EU</option>
-              <option value="The RG Academy (Diamond / Plat / Gold)">The RG Academy (Diamond / Plat / Gold)</option>
+              <option value="The RG Academy (Diamond &amp; Platinum)">The RG Academy (Diamond &amp; Platinum)</option>
             </select>
           </div>
 

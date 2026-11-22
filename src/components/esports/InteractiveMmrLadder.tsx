@@ -25,17 +25,17 @@ interface TierInfo {
 const MMR_TIERS: TierInfo[] = [
   {
     minMmr: 0,
-    maxMmr: 750,
-    rankName: "Gold & Under (Sub-750 MMR)",
+    maxMmr: 749,
+    rankName: "Sub-750 MMR (Gold & Below)",
     rankBadgeColor: "text-amber-500 border-amber-500/30 bg-amber-500/10",
-    matchedTeam: "RG Gold Academy",
+    matchedTeam: "Community Coaching Role",
     region: "Academy",
     captainOrLeader: "[NA] Tay (Academy Leader)",
-    coach: "Jonh Magazoni (Community Coach) & [NA] Vey †",
-    description: "Foundational training focused on rotations, shadow defense, basic aerial mechanics, and game awareness.",
+    coach: "Jonh Magazoni (Community Coach)",
+    description: "Gold Academy is no longer offered. Players below 750 MMR can access free community coaching sessions with Jonh Magazoni via the Movie/Game Night role to grind up to Platinum Academy!",
   },
   {
-    minMmr: 751,
+    minMmr: 750,
     maxMmr: 950,
     rankName: "Platinum (750 - 950 MMR)",
     rankBadgeColor: "text-cyan-400 border-cyan-400/30 bg-cyan-400/10",
@@ -43,7 +43,7 @@ const MMR_TIERS: TierInfo[] = [
     region: "Academy",
     captainOrLeader: "[NA] Tay (Academy Leader)",
     coach: "[NA] Vey † & [NA] Team Manager | Jody",
-    description: "Intermediate development targeting fast aerials, wall hits, recovery speed, and competitive scrim discipline.",
+    description: "Official Academy Entry Tier. Intermediate development targeting fast aerials, wall hits, recovery speed, and competitive scrim discipline.",
   },
   {
     minMmr: 951,
@@ -167,8 +167,7 @@ export function InteractiveMmrLadder({ onOpenTryoutWithTeam }: InteractiveMmrLad
             </span>
             <div className="flex flex-wrap gap-1.5">
               {[
-                { label: "Gold (650)", mmr: 650 },
-                { label: "Plat (850)", mmr: 850 },
+                { label: "Plat Academy (850)", mmr: 850 },
                 { label: "Province D1 (1050)", mmr: 1050 },
                 { label: "Nightshift D3 (1180)", mmr: 1180 },
                 { label: "Dynasty C2 (1350)", mmr: 1350 },

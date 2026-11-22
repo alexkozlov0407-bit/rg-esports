@@ -22,7 +22,7 @@ interface AcademyHubProps {
 }
 
 export function AcademyHub({ onOpenTryoutWithTeam }: AcademyHubProps) {
-  const [activeTab, setActiveTab] = useState<"diamond" | "plat" | "gold">("plat");
+  const [activeTab, setActiveTab] = useState<"diamond" | "plat">("plat");
 
   const academyTiers = {
     diamond: {
@@ -48,19 +48,6 @@ export function AcademyHub({ onOpenTryoutWithTeam }: AcademyHubProps) {
         { name: "[NA] Pedro", tag: "Plat Academy", note: "North America" },
       ],
       coaches: ["[NA] Tay", "[NA] Team Manager | Jody"],
-    },
-    gold: {
-      name: "Gold & Under Academy",
-      rankBadge: "text-amber-400 border-amber-400/30 bg-amber-400/10",
-      description: "Game sense fundamentals: rotation discipline, power clears, camera settings, boost conservation, and shadow defense.",
-      players: [
-        { name: "[NA] Striken", tag: "Gold Academy", note: "North America" },
-        { name: "[EU] Liljhonny", tag: "Gold Academy", note: "European Division" },
-        { name: "[EU] Spiz", tag: "Gold Academy", note: "European Division" },
-        { name: "dandywillfindyou", tag: "Gold Academy", note: "Academy Roster" },
-        { name: "Purpistic", tag: "Gold Academy", note: "Academy Roster" },
-      ],
-      coaches: ["Jonh Magazoni", "[NA] Vey †"],
     },
   };
 
@@ -168,7 +155,6 @@ export function AcademyHub({ onOpenTryoutWithTeam }: AcademyHubProps) {
               {(
                 [
                   { key: "plat", label: "Plat Academy (7)", count: 7 },
-                  { key: "gold", label: "Gold & Under (5)", count: 5 },
                   { key: "diamond", label: "Diamond Academy (1)", count: 1 },
                 ] as const
               ).map((tab) => (
@@ -247,7 +233,7 @@ export function AcademyHub({ onOpenTryoutWithTeam }: AcademyHubProps) {
             <div className="flex items-center gap-3 text-xs font-mono text-gray-300">
               <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
               <span>
-                To enroll: Open a ticket in Discord and submit your <strong>RL Tracker URL</strong>. You will be assigned to either Diamond, Plat, or Gold Academy based on your MMR!
+                To enroll: Open a ticket in Discord and submit your <strong>RL Tracker URL</strong>. You will be assigned to either Diamond or Plat Academy based on your MMR!
               </span>
             </div>
 

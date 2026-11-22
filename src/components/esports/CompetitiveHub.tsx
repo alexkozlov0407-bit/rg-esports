@@ -64,7 +64,7 @@ const EVENTS: MatchEvent[] = [
     region: "North America",
     format: "Free Coaching with Jonh Magazoni & Tay",
     badgeColor: "text-emerald-400 border-emerald-400/40 bg-emerald-400/10",
-    description: "Hands-on replay analysis and mechanics coaching for Diamond, Plat, and Gold Academy members.",
+    description: "Hands-on replay analysis and mechanics coaching for Diamond and Platinum Academy members.",
   },
 ];
 
